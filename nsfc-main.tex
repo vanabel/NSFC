@@ -1,7 +1,7 @@
 \documentclass[zihao=-4,fontset=macnew]{ctexart}
 % ===== 切换这里 =====
-%\usepackage[final]{nsfc}
-\usepackage[draft]{nsfc}
+\usepackage[final]{nsfc}
+%\usepackage[draft]{nsfc}
 % 加载 amsrefs 包，可以在这里控制选项
 \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}  % 如果需要启用引文页码, 添加 backrefs 选项
 
@@ -59,10 +59,11 @@
     \end{itemize}
     \item 第一层第三项
   \end{itemize}
+  \subsubsection{参考文献}
+  \cites{EinsteinBergmann1938AM,Hamilton1982JDG,Osserman1990AMM}
   \section[（为什么要开展此项研究，研究的科学技术价值如何）]{立项依据：}
   \cite{EinsteinBergmann1938AM}
   \zhlipsum[3-4]
-  \cites{EinsteinBergmann1938AM,Hamilton1982JDG,Osserman1990AMM}
 
   %\bibliographystyle{plain}%
   \nocite{*}%
