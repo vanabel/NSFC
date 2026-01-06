@@ -17,8 +17,8 @@
 *.snm
 *.vrb
 
-# PDF files (optional - uncomment if you don't want to track PDFs)
-# *.pdf
+# PDF files (excluded - generated files should not be tracked)
+*.pdf
 
 # Backup files
 *~
