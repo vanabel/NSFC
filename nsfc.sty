@@ -379,38 +379,72 @@ punct=quanjiao,
 }
 
 % ==================================================
-% 字数统计功能（基于页数估算）
+% 字数统计功能（基于行号计算）
 % ==================================================
 % 创建计数器用于字数统计
 \newcounter{nsfc@totalpages}
-\newcounter{nsfc@textpages}
-\newcounter{nsfc@textlines}
+\newcounter{nsfc@totallines}
 \newcounter{nsfc@wordcount}
+\newcounter{nsfc@excludedlines}% 被排除的短行计数
 
-% NSFC 格式：小四号，行距 22 磅，A4 页面
-% 每页约 38-40 行（考虑页边距和行距）
-% 每行约 38-40 个汉字（小四号，30mm 页边距）
-% 估算公式：字数 ≈ (总页数 - 1) × 38行/页 × 40字/行
+% 标记短行（如 "无。"），使其不参与行号计数
+\newcommand{\nsfcExcludeLine}[1]{%
+  \ifnsfc@final%
+    #1%
+  \else%
+    \stepcounter{nsfc@excludedlines}% 增加排除行计数
+    \nolinenumbers% 跳过这一行的行号显示
+    #1\par% 确保换行
+    \linenumbers% 恢复行号计数
+    % 注意：我们不在 here 减少行号计数器，而是在字数统计时减去排除的行数
+    % 这样可以保持行号显示的连续性
+  \fi%
+}
+
+% NSFC 格式：小四号，行距 22 磅
+% 每行约 35 个汉字（包括符号）
+% 计算公式：字数 = 行号 × 35字/行
 \newcommand{\nsfcWordCount}{%
   \ifnsfc@final\relax%
   \else%
+    % 先获取行号值（在禁用行号之前）
+    % 获取总页数
+    \setcounter{nsfc@totalpages}{\getpagerefnumber{LastPage}}%
+    % 禁用行号（字数统计页面不需要行号）
+    \nolinenumbers%
     \newpage%
     \vspace*{\fill}%
     \begin{center}%
-      \kaishu\zihao{4}\textbf{字数统计（估算）}%
+      \kaishu\zihao{4}\textbf{字数统计}%
     \end{center}%
     \vspace{0.5\baselineskip}%
     \songti\zihao{-4}%
-    \setcounter{nsfc@totalpages}{\getpagerefnumber{LastPage}}%
-    \setcounter{nsfc@textpages}{\numexpr\value{nsfc@totalpages}-1\relax}%
-    \setcounter{nsfc@textlines}{\numexpr\value{nsfc@textpages}*38\relax}%
-    \setcounter{nsfc@wordcount}{\numexpr\value{nsfc@textlines}*40\relax}%
-    \noindent 正文总页数：\the\value{nsfc@totalpages} 页\\
-    \noindent 正文页数（估算，不含封面和摘要）：约 \the\value{nsfc@textpages} 页\\
-    \noindent 正文行数（估算）：约 \the\value{nsfc@textlines} 行\\
-    \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
-    \vspace{0.3\baselineskip}%
-    \noindent\textit{注：此统计为估算值，基于页数和行数计算，仅供参考。实际字数可能因排版、图表、公式等因素有所差异。}%
+    % 尝试获取行号（如果 lineno 已启用）
+    \@ifundefined{c@linenumber}{%
+      % 如果 lineno 未启用，使用页数估算
+      \setcounter{nsfc@totallines}{\numexpr\value{nsfc@totalpages}*35\relax}%
+      \setcounter{nsfc@wordcount}{\numexpr\value{nsfc@totallines}*35\relax}%
+      \noindent 正文总页数：\number\numexpr\value{nsfc@totalpages}-1\relax 页\\
+      \noindent 正文行数（估算）：约 \the\value{nsfc@totallines} 行\\
+      \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
+      \vspace{0.3\baselineskip}%
+      \noindent\textit{注：行号功能未启用，使用页数估算。}%
+    }{%
+      % 如果 lineno 已启用，使用行号计算
+      % lineno 包使用 \c@linenumber 作为行号计数器
+      % 获取当前行号（在文档末尾调用时，这就是最后一行的行号）
+      % 减去被排除的短行数
+      \setcounter{nsfc@totallines}{\numexpr\value{linenumber}-1\relax}%
+      \setcounter{nsfc@wordcount}{\numexpr\value{nsfc@totallines}*35\relax}%
+      \noindent 正文总页数：\number\numexpr\value{nsfc@totalpages}-1\relax 页\\
+      \noindent 正文行数（基于行号，已排除短行）：\the\value{nsfc@totallines} 行\\
+      \ifnum\value{nsfc@excludedlines}>0%
+        \noindent 已排除短行数：\the\value{nsfc@excludedlines} 行\\
+      \fi%
+      \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
+      \vspace{0.3\baselineskip}%
+      \noindent\textit{注：字数 = 行数 × 35字/行。此统计为估算值，仅供参考。实际字数可能因排版、图表、公式等因素有所差异。}%
+    }%
     \vspace*{\fill}%
   \fi%
 }
