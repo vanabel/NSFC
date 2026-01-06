@@ -1,0 +1,422 @@
+% ==============================
+% nsfc.sty  (final / draft)
+% ==============================
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{nsfc}[2026/01/06 NSFC proposal style]
+
+% ---------- Options ----------
+\newif\ifnsfc@final
+\DeclareOption{final}{\nsfc@finaltrue}
+\DeclareOption{draft}{\nsfc@finalfalse}
+\ExecuteOptions{draft} % default
+\ProcessOptions\relax
+
+% ---------- Packages ----------
+\RequirePackage{geometry}
+\RequirePackage{setspace}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+\RequirePackage{refcount}
+\RequirePackage{graphicx}
+\RequirePackage{xcolor}
+\RequirePackage{hyperref}
+\RequirePackage{bookmark}
+\RequirePackage{enumitem}
+\RequirePackage{amsmath,amssymb}
+\RequirePackage{microtype}
+\RequirePackage{environ}
+\RequirePackage{etoolbox}
+% amsrefs 不在这里加载，让用户在文档中加载以控制选项
+% \RequirePackage{amsrefs}
+\RequirePackage{xparse}
+\RequirePackage{totcount}
+\RequirePackage{lineno}
+
+
+% ---------- Page layout (按 NSFC 正文习惯) ----------
+\geometry{
+  a4paper,
+  left=30mm,
+  right=30mm,
+  top=25mm,
+  bottom=25mm
+}
+%\setstretch{1.25}
+% 定义 NSFC 常用颜色
+\definecolor{NSFCRed}{RGB}{255,0,0}
+\definecolor{NSFCBlue}{RGB}{0,112,192}
+\newcommand{\red}[1]{\textcolor{NSFCRed}{#1}}
+\newcommand{\blue}[1]{\textcolor{NSFCBlue}{#1}}
+
+% ---------- Hyperref ----------
+\hypersetup{
+  colorlinks=true,
+  %linkcolor=blue,
+  %citecolor=blue,
+  %urlcolor=blue,
+  pdfborder={0 0 0}
+}
+
+% ---------- Header / Footer ----------
+\pagestyle{empty}   % 使用 plain 样式
+\fancyhf{}          % 清空所有页眉页脚内容
+\renewcommand{\headrulewidth}{0pt} % 去掉页眉横线
+\renewcommand{\footrulewidth}{0pt} % 去掉页脚横线
+
+
+% ==============================
+% 正文字体与行距（NSFC final 规范）
+% ==============================
+
+%\RequirePackage{ctex}
+
+% 小四号，宋体
+\AtBeginDocument{%
+  \zihao{-4}%
+  \songti
+}
+
+% 行距：22 磅（这是核心）
+\setlength{\baselineskip}{22pt}
+
+% 首行缩进 0.74 cm
+\setlength{\parindent}{0.74cm}
+% 段前 0 行，段后 0.5 行（= 11pt）
+\setlength{\parskip}{0.45em}
+
+% 允许正常分页，避免孤行和寡行
+\clubpenalty=300
+\widowpenalty=300
+\displaywidowpenalty=50
+
+% ---------- Metadata ----------
+\newcommand{\nsfcProjectTitle}[1]{\def\nsfc@projecttitle{#1}}
+\newcommand{\nsfc@projecttitle}{（项目名称）}
+
+\newcommand{\nsfcApplicant}[1]{\def\nsfc@applicant{#1}}
+\newcommand{\nsfcUnit}[1]{\def\nsfc@unit{#1}}
+
+\newcommand{\nsfcKeywordsZH}[1]{\def\nsfc@kwzh{#1}}
+\newcommand{\nsfcKeywordsEN}[1]{\def\nsfc@kwen{#1}}
+
+% ---------- Draft-only note ----------
+\newcommand{\nsfcNote}[1]{%
+  \ifnsfc@final\relax%
+  \else{\par\textcolor{gray}{\small【写作提示】#1}\par}%
+  \fi
+}
+% ---------- Title ----------
+\newcommand{\nsfcTitlePage}{%
+\begin{center}
+  \ifnsfc@final
+  \else
+  {\Large\bfseries 国家自然科学基金面上项目申请书\par}
+  \vspace{1em}
+  {\LARGE\bfseries \nsfc@projecttitle\par}
+  \vspace{1em}
+  \fi
+\end{center}
+\vspace{-\baselineskip}% 减少标题页后的间距
+}
+
+% ---------- Abstracts (final only) ----------
+
+\ifnsfc@final
+
+  % ========== FINAL：整块吞掉 ==========
+  \NewEnviron{nsfcAbstractZH}{}
+  \NewEnviron{nsfcAbstractEN}{}
+
+\else
+
+  % ========== DRAFT：正常摘要 ==========
+  \NewEnviron{nsfcAbstractZH}{%
+    \par\noindent\textbf{中文摘要：}\small
+    \BODY\par
+    \noindent\textbf{关键词：}\nsfc@kwzh\par
+  }
+  \NewEnviron{nsfcAbstractEN}{%
+    \par\noindent\textbf{Abstract:}\small
+    \BODY\par
+    \noindent\textbf{Keywords: }\nsfc@kwen\par
+  }
+
+\fi
+
+% 在英文摘要结束后自动插入 NSFCP
+\AfterEndEnvironment{nsfcAbstractEN}{%
+\ifnsfc@final\vspace{-1.7\baselineskip}\fi% 减少标题后的间距
+\begin{center}
+  {\kaishu \zihao{3} \textbf{报告正文（\( 2026 \)版）}}
+\end{center}
+\vspace{-0.7\baselineskip}% 减少标题后的间距
+\kaishu\zihao{4}\hspace*{2\ccwd}参照以下提纲撰写，要求内容翔实、清晰，层次分明，标题突出。\red{\textbf{申请书正文原则上不超过\( 30 \)页，鼓励简洁表达。}}\textbf{\blue{请勿删除或改动下述提纲标题及括号中的文字。}}
+\par%
+\songti\zihao{-4}% 恢复正文为宋体小四号
+% 在正文开始后启用行号（仅在 draft 模式下）
+\ifnsfc@final\relax%
+\else%
+  \modulolinenumbers[5]% 每 5 行显示一次行号
+  \linenumbers%
+  % 配置行号：跳过 section/subsection 等标题
+  %\setlength\linenumbersep{3pt}% 行号与文本的间距
+  \renewcommand\linenumberfont{\normalfont\zihao{-4}}% 行号字体
+\fi%
+}
+\ctexset{
+punct=quanjiao,
+  section = {
+    name = {},
+    number = {}, %\chinese{section}
+    numberformat = {（\chinese{section}）}, %（\chinese{section}）
+    format = {
+      \ifnsfc@final\relax%
+      \else\nolinenumbers\fi% 跳过 section 标题的行号
+      \hspace*{0.74cm}
+      \kaishu
+      \zihao{4}
+      \color{NSFCBlue}
+      \bfseries
+    },
+    aftername = {\space},
+    beforeskip = 0\baselineskip,
+    afterskip  = 0\baselineskip,
+    aftertitle = {%
+      \ifnsfc@final\relax%
+      \else\linenumbers\fi% 恢复行号
+    },
+  },
+  subsection = {
+    name = {},
+    number = {}, %\chinese{section}
+    numberformat = {\normalfont\kaishu\arabic{subsection}.}, %（\chinese{section}）
+    format = {
+      \ifnsfc@final\relax%
+      \else\nolinenumbers\fi% 跳过 subsection 标题的行号
+      \hspace*{0.74cm}
+      \kaishu
+      \zihao{4}
+      \color{NSFCBlue}
+      \bfseries
+    },
+    aftername = {\space},
+    beforeskip = 0\baselineskip,
+    afterskip  = 0\baselineskip,
+    aftertitle = {%
+      \ifnsfc@final\relax%
+      \else\linenumbers\fi% 恢复行号
+    },
+  },
+  subsubsection = {
+    name = {},
+    number = {},
+    numberformat = {（\arabic{subsubsection}）}, % (1)
+    format = {
+      \ifnsfc@final\relax%
+      \else\nolinenumbers\fi% 跳过 subsubsection 标题的行号
+      \hspace*{0.74cm}
+      \songti
+      \zihao{-4}
+      \bfseries
+    },
+    aftername = {\space},
+    beforeskip = 0.3\baselineskip,
+    afterskip  = 0.2\baselineskip,
+    aftertitle = {%
+      \ifnsfc@final\relax%
+      \else\linenumbers\fi% 恢复行号
+    },
+  },
+  paragraph = {
+    name = {},
+    number = {}, % 不带编号
+    numberformat = {},
+    format = {
+      \ifnsfc@final\relax%
+      \else\nolinenumbers\fi% 跳过 paragraph 标题的行号
+      \hspace*{0.74cm}
+      \songti
+      \zihao{-4}
+      \bfseries
+    },
+    aftername = {\space},
+    beforeskip = 0.2\baselineskip,
+    afterskip  = 0.1\baselineskip,
+    aftertitle = {%
+      \ifnsfc@final\relax%
+      \else\linenumbers\fi% 恢复行号
+    },
+  }
+}
+
+% ==================================================
+% 配置列表环境（enumerate 和 itemize）
+% ==================================================
+% 设置 enumerate 和 itemize 的缩进和格式
+\setlist{
+  leftmargin=1.5em,        % 左缩进
+  itemindent=0.74cm,       % 首行缩进（与正文一致）
+  labelsep=0.5em,          % 标签与文本的间距
+  topsep=0.3\baselineskip, % 列表前后的间距
+  partopsep=0pt,           % 段落开始时的额外间距
+  parsep=0.1\baselineskip, % 列表项之间的间距
+  itemsep=0.1\baselineskip % 列表项之间的间距
+}
+
+% enumerate 环境：使用阿拉伯数字编号
+\setlist[enumerate,1]{
+  label=\arabic*),          % 第一层：1), 2), 3)...
+  font=\songti\zihao{-4}
+}
+
+\setlist[enumerate,2]{
+  label=\alph*),            % 第二层：a), b), c)...
+  font=\songti\zihao{-4}
+}
+
+\setlist[enumerate,3]{
+  label=\roman*),           % 第三层：i), ii), iii)...
+  font=\songti\zihao{-4}
+}
+
+% itemize 环境：使用中文符号
+\setlist[itemize,1]{
+  label=$\bullet$,          % 第一层：实心圆点
+  font=\songti\zihao{-4}
+}
+
+\setlist[itemize,2]{
+  label=$\circ$,            % 第二层：空心圆点
+  font=\songti\zihao{-4}
+}
+
+\setlist[itemize,3]{
+  label=$-$                 % 第三层：短横线
+}
+
+% ==================================================
+% 重新定义 \section 和 \subsection 以支持说明文字
+% ==================================================
+% 保存原始的 section 和 subsection 命令
+\let\@oldsection\section
+\let\@oldsubsection\subsection
+
+% 重新定义 \section，支持 \section[说明]{标题} 格式
+\RenewDocumentCommand{\section}{o m}{%
+  \ifnsfc@final\relax%
+  \else\nolinenumbers\fi% 跳过 section 标题的行号
+  \IfNoValueTF{#1}{%
+    % 没有说明文字
+    \@oldsection{#2}%
+  }{%
+    % 有说明文字
+    \@oldsection{#2}%
+    \kaishu\zihao{4}\blue{#1}\par%
+  }%
+  \ifnsfc@final\relax%
+  \else\linenumbers\fi% 恢复行号
+  \songti\zihao{-4}% 确保后续正文为宋体小四号
+  \allowbreak
+}
+
+% 重新定义 \subsection，支持 \subsection[说明]{标题} 格式
+\RenewDocumentCommand{\subsection}{o m}{%
+  \ifnsfc@final\relax%
+  \else\nolinenumbers\fi% 跳过 subsection 标题的行号
+  \IfNoValueTF{#1}{%
+    % 没有说明文字
+    \@oldsubsection{#2}%
+  }{%
+    % 有说明文字，将说明文字放在标题后面
+    \@oldsubsection{#2 {\normalfont\kaishu\zihao{4}#1}}%
+  }%
+  \ifnsfc@final\relax%
+  \else\linenumbers\fi% 恢复行号
+  \songti\zihao{-4}% 确保后续正文为宋体小四号
+  \allowbreak
+}
+
+% 保留旧命令以保持向后兼容
+\newcommand{\NSFCsection}[2][]{%
+  \IfNoValueTF{#1}{%
+    \section{#2}%
+  }{%
+    \section[#1]{#2}%
+  }%
+}
+
+\newcommand{\NSFCsubsection}[2][]{%
+  \IfNoValueTF{#1}{%
+    \subsection{#2}%
+  }{%
+    \subsection[#1]{#2}%
+  }%
+}
+
+% 对于 amsrefs 包，修改 bibdiv 环境，避免创建 section
+% 在 AtBeginDocument 中修改，确保所有包都已加载
+\AtBeginDocument{%
+  % 对于 amsrefs 包，重新定义 bibdiv 环境为空，避免创建 section
+  \@ifundefined{bibdiv}{}{%
+    \renewenvironment{bibdiv}{}{}%
+  }%
+  % 如果 amsrefs 未加载，给出提示
+  \@ifundefined{bibdiv}{%
+    \PackageWarning{nsfc}{amsrefs package not loaded. Please load it in your document.}%
+  }{}%
+}
+
+% 参考文献命令
+\newcommand{\nsfcReferences}[1]{%
+  \par\vspace{0.5\baselineskip}%
+  \begin{center}%
+    \kaishu\zihao{4}\textbf{参考文献}%
+  \end{center}%
+  \vspace{0.3\baselineskip}%
+  \songti\zihao{-4}%
+  \bibliography{#1}%
+  \par\vspace{0.5\baselineskip}%
+}
+
+% ==================================================
+% 字数统计功能（基于页数估算）
+% ==================================================
+% 创建计数器用于字数统计
+\newcounter{nsfc@totalpages}
+\newcounter{nsfc@textpages}
+\newcounter{nsfc@textlines}
+\newcounter{nsfc@wordcount}
+
+% NSFC 格式：小四号，行距 22 磅，A4 页面
+% 每页约 38-40 行（考虑页边距和行距）
+% 每行约 38-40 个汉字（小四号，30mm 页边距）
+% 估算公式：字数 ≈ (总页数 - 1) × 38行/页 × 40字/行
+\newcommand{\nsfcWordCount}{%
+  \ifnsfc@final\relax%
+  \else%
+    \newpage%
+    \vspace*{\fill}%
+    \begin{center}%
+      \kaishu\zihao{4}\textbf{字数统计（估算）}%
+    \end{center}%
+    \vspace{0.5\baselineskip}%
+    \songti\zihao{-4}%
+    \setcounter{nsfc@totalpages}{\getpagerefnumber{LastPage}}%
+    \setcounter{nsfc@textpages}{\numexpr\value{nsfc@totalpages}-1\relax}%
+    \setcounter{nsfc@textlines}{\numexpr\value{nsfc@textpages}*38\relax}%
+    \setcounter{nsfc@wordcount}{\numexpr\value{nsfc@textlines}*40\relax}%
+    \noindent 正文总页数：\the\value{nsfc@totalpages} 页\\
+    \noindent 正文页数（估算，不含封面和摘要）：约 \the\value{nsfc@textpages} 页\\
+    \noindent 正文行数（估算）：约 \the\value{nsfc@textlines} 行\\
+    \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
+    \vspace{0.3\baselineskip}%
+    \noindent\textit{注：此统计为估算值，基于页数和行数计算，仅供参考。实际字数可能因排版、图表、公式等因素有所差异。}%
+    \vspace*{\fill}%
+  \fi%
+}
+
+
+\usepackage{zhlipsum}
+\ifnsfc@final
+\RenewDocumentCommand{\zhlipsum}{o}{}
+\fi
