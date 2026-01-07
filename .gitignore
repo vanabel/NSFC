@@ -20,6 +20,13 @@
 # PDF files (excluded - generated files should not be tracked)
 *.pdf
 
+# Generated files from nsfc.dtx (via docstrip)
+nsfc.sty
+nsfc.ins
+nsfc-main.tex
+nsfc-refs.bib
+README.txt
+
 # Backup files
 *~
 *.bak
