@@ -302,6 +302,186 @@ and the derived files           nsfc.ins,
 % % \nsfcResearchType{目标导向类基础研究}
 % \end{verbatim}
 %
+%\section{功能特性}
+%
+%\subsection{双模式支持}
+%
+%\DescribeOption{draft}
+%|draft| 模式（默认）：
+%\begin{itemize}
+%  \item 显示标题页（项目名称）
+%  \item 显示中文和英文摘要
+%  \item 显示写作提示（|\nsfcNote|）
+%  \item 显示行号（每 5 行显示一次）
+%  \item 显示字数统计页面
+%  \item 显示 |zhlipsum| 占位文本
+%\end{itemize}
+%
+%\DescribeOption{final}
+%|final| 模式：
+%\begin{itemize}
+%  \item 隐藏标题页
+%  \item 隐藏摘要内容
+%  \item 隐藏所有写作提示
+%  \item 隐藏行号
+%  \item 隐藏字数统计
+%  \item 隐藏占位文本
+%  \item 仅显示符合 NSFC 规范的正文内容
+%\end{itemize}
+%
+%\DescribeOption{debug}
+%|debug| 选项：输出调试信息，一般只针对开发者使用，普通用户不建议使用。
+%
+%\subsection{页面布局与格式}
+%
+%\textbf{页面设置}：
+%\begin{itemize}
+%  \item A4 纸张
+%  \item 页边距：左右 30mm，上下 25mm
+%  \item 无页眉页脚
+%\end{itemize}
+%
+%\textbf{正文字体与格式}：
+%\begin{itemize}
+%  \item 字体：宋体（|\songti|）
+%  \item 字号：小四号（|\zihao{-4}|）
+%  \item 行距：22 磅（|\baselineskip=22pt|）
+%  \item 首行缩进：0.74 cm
+%  \item 段落间距：0.45em
+%\end{itemize}
+%
+%\textbf{分页控制}：
+%\begin{itemize}
+%  \item 避免孤行和寡行（|\clubpenalty=300|, |\widowpenalty=300|）
+%\end{itemize}
+%
+%\subsection{标题格式}
+%
+%\DescribeMacro{\section}
+%\cs{section} 命令：
+%\begin{itemize}
+%  \item 格式：|（一）|、|（二）|...（中文数字）
+%  \item 字体：楷体四号，蓝色，加粗
+%  \item 支持可选参数：|\section[说明文字]{标题}|
+%  \item 自动跳过行号
+%\end{itemize}
+%
+%\DescribeMacro{\subsection}
+%\cs{subsection} 命令：
+%\begin{itemize}
+%  \item 格式：|1.|、|2.|...（阿拉伯数字）
+%  \item 字体：楷体四号，蓝色，加粗
+%  \item 支持可选参数：|\subsection[说明文字]{标题}|
+%  \item 自动跳过行号
+%\end{itemize}
+%
+%\DescribeMacro{\subsubsection}
+%\cs{subsubsection} 命令：
+%\begin{itemize}
+%  \item 格式：|(1)|、|(2)|...（带括号的阿拉伯数字）
+%  \item 字体：宋体小四号，加粗
+%  \item 自动跳过行号
+%\end{itemize}
+%
+%\DescribeMacro{\paragraph}
+%\cs{paragraph} 命令：
+%\begin{itemize}
+%  \item 格式：不带编号
+%  \item 字体：宋体小四号，加粗
+%  \item 自动跳过行号
+%\end{itemize}
+%
+%\subsection{列表环境}
+%
+%\DescribeEnv{enumerate}
+%\cs{enumerate} 环境（有序列表）：
+%\begin{itemize}
+%  \item 第一层：|1)|, |2)|, |3)|...
+%  \item 第二层：|a)|, |b)|, |c)|...
+%  \item 第三层：|i)|, |ii)|, |iii)|...
+%\end{itemize}
+%
+%\DescribeEnv{itemize}
+%\cs{itemize} 环境（无序列表）：
+%\begin{itemize}
+%  \item 第一层：实心圆点 |$\bullet$|
+%  \item 第二层：空心圆点 |$\circ$|
+%  \item 第三层：短横线 |-|
+%\end{itemize}
+%
+%所有列表项使用宋体小四号，首行缩进 0.74cm。
+%
+%\subsection{行号功能（仅 \cs{draft} 模式）}
+%
+%\begin{itemize}
+%  \item 自动在正文开始后启用行号
+%  \item 每 5 行显示一次行号（|mod=5|）
+%  \item 自动跳过所有标题行（\cs{section}/\cs{subsection}/\cs{subsubsection}/\cs{paragraph}）
+%  \item 行号字体：小四号无衬线字体
+%  \item 使用 \cs{nsfcExcludeLine}\marg{内容} 可以排除短行（如 "无。"）的行号显示
+%\end{itemize}
+%
+%\subsection{字数统计（仅 \cs{draft} 模式）}
+%
+%\textbf{基于行号计算}（如果启用行号）：
+%\begin{itemize}
+%  \item 计算公式：|字数 = (行号 - 1) × 35字/行|
+%  \item 每行按 35 个汉字（包括符号）计算
+%  \item 自动排除使用 \cs{nsfcExcludeLine} 标记的短行
+%\end{itemize}
+%
+%\textbf{基于页数估算}（如果未启用行号）：
+%\begin{itemize}
+%  \item 计算公式：|字数 ≈ 页数 × 35行/页 × 35字/行|
+%\end{itemize}
+%
+%显示信息：
+%\begin{itemize}
+%  \item 正文总页数（不含封面和摘要）
+%  \item 正文行数
+%  \item 已排除短行数（如果有）
+%  \item 正文字数估算
+%\end{itemize}
+%
+%字数统计页面不显示行号。
+%
+%\subsection{参考文献支持}
+%
+%\begin{itemize}
+%  \item 使用 |amsrefs| 包管理参考文献
+%  \item 提供 \cs{nsfcReferences}\marg{文件名} 命令
+%  \item 自动居中显示"参考文献"标题
+%  \item 使用楷体四号标题，宋体小四号正文
+%  \item 支持 MR 链接（需要参考文献数据中包含 |MRNUMBER| 字段）
+%\end{itemize}
+%
+%\subsection{其他功能}
+%
+%\textbf{项目信息}：
+%\begin{itemize}
+%  \item \cs{nsfcProjectTitle}\marg{项目名称}
+%  \item \cs{nsfcKeywordsZH}\marg{关键词1；关键词2；关键词3}
+%  \item \cs{nsfcKeywordsEN}\marg{keywords1; keywords2; keywords3}
+%  \item \cs{nsfcResearchTypeFree} 或 \cs{nsfcResearchTypeTarget}（研究属性）
+%\end{itemize}
+%
+%\textbf{写作提示}：\cs{nsfcNote}\marg{提示内容}：仅在 |draft| 模式下显示灰色提示文字
+%
+%\textbf{标题页}：\cs{nsfcTitlePage}：仅在 |draft| 模式下显示
+%
+%\textbf{摘要环境}：
+%\begin{itemize}
+%  \item \begin{verbatim}\begin{nsfcAbstractZH}...\end{nsfcAbstractZH}：中文摘要\end{verbatim}
+%  \item \begin{verbatim}\begin{nsfcAbstractEN}...\end{nsfcAbstractEN}：英文摘要\end{verbatim}
+%  \item 仅在 |draft| 模式下显示，|final| 模式下自动隐藏
+%\end{itemize}
+%
+%\textbf{自动插入正文标题}：
+%\begin{itemize}
+%  \item 在英文摘要结束后自动插入"报告正文（2026版）"标题
+%  \item 自动插入格式说明文字
+%\end{itemize}
+%
 % \StopEventually{}
 %
 % \section{代码实现}
