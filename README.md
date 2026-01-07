@@ -1,5 +1,9 @@
 # NSFC Proposal Template
 
+[![License](https://img.shields.io/badge/license-LPPL%201.3c-blue.svg)](http://www.latex-project.org/lppl.txt)
+[![Version](https://img.shields.io/badge/version-v1.0.0-green.svg)](https://github.com/vanabel/nsfc/releases)
+[![LaTeX](https://img.shields.io/badge/LaTeX-2.09%2B-orange.svg)](https://www.latex-project.org/)
+
 国家自然科学基金申请书 LaTeX 模板
 
 ## 功能特性
@@ -213,18 +217,23 @@
 ### 4. 编译文档
 
 ```bash
-pdflatex nsfc-main.tex
+make main
+# 或手动编译
+xelatex nsfc-main.tex
 bibtex nsfc-main
-pdflatex nsfc-main.tex
-pdflatex nsfc-main.tex
+xelatex nsfc-main.tex
+xelatex nsfc-main.tex
 ```
 
 ## 文件说明
 
-- `nsfc-main.tex`：主文档文件
-- `nsfc.sty`：样式包文件
+- `nsfc.dtx`：源代码文件（包含文档和代码）
+- `nsfc.ins`：安装文件
+- `nsfc-main.tex`：主文档示例文件
+- `nsfc.sty`：样式包文件（由 `nsfc.dtx` 生成）
 - `nsfc-refs.bib`：参考文献数据库（BibTeX 格式）
-- `.gitignore`：Git 忽略文件配置
+- `Makefile`：编译自动化脚本
+- `.latexmkrc`：latexmk 配置文件
 
 ## 命令参考
 
@@ -283,6 +292,24 @@ pdflatex nsfc-main.tex
 - **LaTeX 版本**：LaTeX2e
 - **编译引擎**：XeLaTeX（推荐，支持中文字体）或 pdfLaTeX
 
-## 许可证
+## 🤝 贡献
 
-本项目为 NSFC 申请书模板，供学术研究使用。
+欢迎提交 Issue 和 Pull Request！
+
+## 📄 许可证
+
+本项目采用 [LaTeX Project Public License (LPPL) v1.3c](http://www.latex-project.org/lppl.txt) 许可证。
+
+## 👤 作者
+
+**Van Abel**
+- Email: van141.abel@gmail.com
+- GitHub: [@vanabel](https://github.com/vanabel)
+
+## 🙏 致谢
+
+本项目最初开发于重庆，用于准备面上项目。感谢所有贡献者和使用者！
+
+---
+
+⭐ 如果这个项目对你有帮助，请给个 Star！
