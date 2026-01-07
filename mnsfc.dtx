@@ -30,7 +30,7 @@
 %</internal>
 %<*readme>
 ---------------------------------------------------------------
-nsfc --- A package for NSFC Proposal
+mnsfc --- A package for NSFC Proposal
 ===============================================================
 Released under the LaTeX Project Public License v1.3c or later
 See http://www.latex-project.org/lppl.txt
@@ -40,8 +40,8 @@ This package is developed when I prepare the `NSFC` Proposal.
 USAGE
 ---------------------------------------------------------------
 Download the zip file and unzip to a local directory, then have a look at the
-`nsfc-main.pdf`, you can edit and compile it by 
-`latexmk -xelatex -shell-escape nsfc-main.tex`.
+`mnsfc-main.pdf`, you can edit and compile it by 
+`latexmk -xelatex -shell-escape mnsfc-main.tex`.
 %</readme>
 %<*internal>
 \fi
@@ -58,7 +58,7 @@ Download the zip file and unzip to a local directory, then have a look at the
 \askforoverwritefalse
 \preamble
 ----------------------------------------------------------------
-nsfc --- 国家自然科学基金写作宏包
+mnsfc --- 数学类国家自然科学基金写作宏包
 ===============================================================
 E-mail: van141.abel(AT)gmail.com
 Released under the LaTeX Project Public License v1.3c or later
@@ -80,21 +80,21 @@ http://www.latex-project.org/lppl.txt
 This work is "maintained" (as per LPPL maintenance status) by
 You.
 
-This work consists of the file  nsfc.dtx
-and the derived files           nsfc.ins,
-                                nsfc-main.tex,
-                                nsfc-main.pdf,
-                                nsfc.pdf and
-                                nsfc.sty.
+This work consists of the file  mnsfc.dtx
+and the derived files           mnsfc.ins,
+                                mnsfc-main.tex,
+                                mnsfc-main.pdf,
+                                mnsfc.pdf and
+                                mnsfc.sty.
 
 \endpostamble
 \generate{
-  \usedir{tex/latex/nsfc}
+  \usedir{tex/latex/mnsfc}
   \file{\jobname.sty}{\from{\jobname.dtx}{package}}
   \nopreamble\nopostamble
   \file{\jobname-main.tex}{\from{\jobname.dtx}{example-main}}
   \file{\jobname-refs.bib}{\from{\jobname.dtx}{example-bib}}
-  \usedir{doc/latex/nsfc}
+  \usedir{doc/latex/mnsfc}
   \file{README.txt}{\from{\jobname.dtx}{readme}}
 }
 \obeyspaces
@@ -102,7 +102,7 @@ and the derived files           nsfc.ins,
 \Msg{*                                                   }
 \Msg{* To finish the installation you have to move the   }
 \Msg{* following file into a directory searched by TeX   }
-\Msg{* e.g. tex/latex/nsfc:                          }
+\Msg{* e.g. tex/latex/mnsfc:                          }
 \Msg{*                                                   }
 \Msg{* \jobname.sty                                      }
 \Msg{*                                                   }
@@ -120,13 +120,13 @@ and the derived files           nsfc.ins,
 %<install>\endbatchfile
 %
 %<*internal>
-\usedir{source/latex/nsfc}
+\usedir{source/latex/mnsfc}
 \generate{
   \file{\jobname.ins}{\from{\jobname.dtx}{install}}
 }
 % ^^A No extra text add by DocStrip
 \nopreamble\nopostamble
-\usedir{doc/latex/nsfc}
+\usedir{doc/latex/mnsfc}
 \generate{
   \file{README.txt}{\from{\jobname.dtx}{readme}}
 }
@@ -143,9 +143,9 @@ and the derived files           nsfc.ins,
 \ProvidesFile{\jobname.dtx}
 %</driver>
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
-%<package>\ProvidesPackage{nsfc}
+%<package>\ProvidesPackage{mnsfc}
 %<*package>
-[2026/01/06 v.1.0.0 一个国家自然科学基金写作宏包]
+[2026/01/06 v.1.0.0 一个数学类国家自然科学基金写作宏包]
 %</package>
 %
 %
@@ -163,7 +163,7 @@ and the derived files           nsfc.ins,
   \section*{\indexname}
   \textit{
     斜体数字表示相应条目描述的页码, 
-    而下划线的数字表示表示相应条目定义的页码. 
+    而下划线的数字表示表示相应条目定义的页码 
     使用条目的页码用罗马数字表示. 
   }
 }
@@ -210,7 +210,7 @@ and the derived files           nsfc.ins,
 %\DoNotIndex{\RenewDocumentCommand,\NewEnviron,\AfterEndEnvironment,\AtBeginDocument}
 %\DoNotIndex{\IfFileExists,\IfNoValueTF,\PackageWarning,\definecolor,\setmainfont}
 %\DoNotIndex{\pagestyle,\fancyhf,\headrulewidth,\footrulewidth}
-%\DoNotIndex{\ifnsfc@final,\ifnsfc@debug}
+%\DoNotIndex{\ifmnsfc@final,\ifmnsfc@debug}
 %\DoNotIndex{\value,\number,\numexpr,\the,\arabic,\alph,\roman,\z@,\p@}
 %\DoNotIndex{\baselineskip,\parindent,\parskip,\textwidth,\leftskip,\rightskip,\parfillskip}
 %\DoNotIndex{\clubpenalty,\widowpenalty,\displaywidowpenalty}
@@ -223,9 +223,9 @@ and the derived files           nsfc.ins,
 %\DoNotIndex{\CTEX@section@tocline,\CTEX@subsection@tocline,\CTEX@subsubsection@tocline}
 %\DoNotIndex{\CTEX@paragraph@tocline,\l@section,\l@subsection,\l@subsubsection,\l@paragraph}
 %\DoNotIndex{\numberline}
-%\DoNotIndex{\nsfc@applicant,\nsfc@check@colon,\nsfc@check@colon@cn,\nsfc@check@colon@en}
-%\DoNotIndex{\nsfc@debugtrue,\nsfc@finalfalse,\nsfc@finaltrue}
-%\DoNotIndex{\nsfc@kwen,\nsfc@kwzh,\nsfc@projecttitle,\nsfc@researchtype,\nsfc@toc@title,\nsfc@unit}
+%\DoNotIndex{\mnsfc@applicant,\mnsfc@check@colon,\mnsfc@check@colon@cn,\mnsfc@check@colon@en}
+%\DoNotIndex{\mnsfc@debugtrue,\mnsfc@finalfalse,\mnsfc@finaltrue}
+%\DoNotIndex{\mnsfc@kwen,\mnsfc@kwzh,\mnsfc@projecttitle,\mnsfc@researchtype,\mnsfc@toc@title,\mnsfc@unit}
 %\DoNotIndex{\BODY,\DeclareOption,\ExecuteOptions,\ProcessOptions,\setstretch,\stepcounter}
 %\expandafter\DoNotIndex\expandafter{\string\&}
 %\expandafter\DoNotIndex\expandafter{\string\{}
@@ -244,7 +244,7 @@ and the derived files           nsfc.ins,
 %\def\CatIndex#1#2{\index{#1\actualchar{\protect\ttfamily #1} (#2)\encapchar hyperpage}}
 %
 %\title{^^A
-%   \textsf{nsfc} --- 国家自然科学基金写作宏包\thanks{^^A 
+%   \textsf{mnsfc} --- 数学类国家自然科学基金写作宏包\thanks{^^A 
 %     这是对版本号为\fileversion 的文档说明, 最后修改日期为 \filedate.^^A
 %  }^^A
 %}
@@ -255,14 +255,14 @@ and the derived files           nsfc.ins,
 %
 %\maketitle
 % \begin{abstract}
-% 国家自然科学基金申请书 LaTeX 模板，支持 draft 和 final 双模式，提供行号、字数统计等功能。
+% 数学类国家自然科学基金申请书 LaTeX 模板，支持 draft 和 final 双模式，提供行号、字数统计等功能。
 % \end{abstract}
 %\changes{v1.0.0}{2026/01/06}{初始版本}
 % \tableofcontents
 %
 % \section{简介}
 %
-% \textsf{nsfc} 是一个用于编写国家自然科学基金申请书的 LaTeX 模板包。它提供了符合 NSFC 规范的页面布局、字体设置和格式要求，同时支持 draft 和 final 两种模式，方便用户在写作和提交之间切换。
+% \textsf{mnsfc} 是一个用于编写数学国家自然科学基金申请书的 LaTeX 模板包。它提供了符合 NSFC 规范的页面布局、字体设置和格式要求，同时支持 draft 和 final 两种模式，方便用户在写作和提交之间切换。
 %
 % \section{简明使用教程}
 %
@@ -272,12 +272,12 @@ and the derived files           nsfc.ins,
 % \begin{verbatim}
 %
 % \documentclass[UTF8,zihao=-4]{ctexart} %for macos please set: fontset=macnew
-% \usepackage[final]{nsfc} %draft is default, final is for the final version
+% \usepackage[final]{mnsfc} %draft is default, final is for the final version
 % \end{verbatim}
 % 注意： 苹果系统需要设置|fontset=macnew|来正常显示楷体加粗。
 %\section{选项、命令以及环境}%
 %\subsection{模式切换}
-% 选项可以通过传递给文档类或者宏包的形式启用. %
+% 选项可以通过传递给文档类或者宏包的形式启用 %
 %
 %\DescribeOption{draft}
 % |draft| 默认选项：草稿版，输出标题、摘要以及字数统计等信息。
@@ -291,15 +291,15 @@ and the derived files           nsfc.ins,
 % \subsection{项目基本信息设置}
 %
 % \begin{verbatim}
-% \nsfcProjectTitle{（填写项目名称）}
-% \nsfcKeywordsZH{关键词1；关键词2；关键词3}
-% \nsfcKeywordsEN{keywords1; keywords2; keywords3}
+% \mnsfcProjectTitle{（填写项目名称）}
+% \mnsfcKeywordsZH{关键词1；关键词2；关键词3}
+% \mnsfcKeywordsEN{keywords1; keywords2; keywords3}
 % % 选择研究属性（二选一）：
-% % \nsfcResearchTypeFree  % 自由探索类基础研究
-% % \nsfcResearchTypeTarget % 目标导向类基础研究
+% % \mnsfcResearchTypeFree  % 自由探索类基础研究
+% % \mnsfcResearchTypeTarget % 目标导向类基础研究
 % % 或者使用自定义文本：
-% % \nsfcResearchType{自由探索类基础研究}
-% % \nsfcResearchType{目标导向类基础研究}
+% % \mnsfcResearchType{自由探索类基础研究}
+% % \mnsfcResearchType{目标导向类基础研究}
 % \end{verbatim}
 %
 %\section{功能特性}
@@ -311,7 +311,7 @@ and the derived files           nsfc.ins,
 %\begin{itemize}
 %  \item 显示标题页（项目名称）
 %  \item 显示中文和英文摘要
-%  \item 显示写作提示（|\nsfcNote|）
+%  \item 显示写作提示（|\mnsfcNote|）
 %  \item 显示行号（每 5 行显示一次）
 %  \item 显示字数统计页面
 %  \item 显示 |zhlipsum| 占位文本
@@ -418,7 +418,7 @@ and the derived files           nsfc.ins,
 %  \item 每 5 行显示一次行号（|mod=5|）
 %  \item 自动跳过所有标题行（\cs{section}/\cs{subsection}/\cs{subsubsection}/\cs{paragraph}）
 %  \item 行号字体：小四号无衬线字体
-%  \item 使用 \cs{nsfcExcludeLine}\marg{内容} 可以排除短行（如 "无。"）的行号显示
+%  \item 使用 \cs{mnsfcExcludeLine}\marg{内容} 可以排除短行（如 "无。"）的行号显示
 %\end{itemize}
 %
 %\subsection{字数统计（仅 \cs{draft} 模式）}
@@ -427,7 +427,7 @@ and the derived files           nsfc.ins,
 %\begin{itemize}
 %  \item 计算公式：|字数 = (行号 - 1) × 35字/行|
 %  \item 每行按 35 个汉字（包括符号）计算
-%  \item 自动排除使用 \cs{nsfcExcludeLine} 标记的短行
+%  \item 自动排除使用 \cs{mnsfcExcludeLine} 标记的短行
 %\end{itemize}
 %
 %\textbf{基于页数估算}（如果未启用行号）：
@@ -449,7 +449,7 @@ and the derived files           nsfc.ins,
 %
 %\begin{itemize}
 %  \item 使用 |amsrefs| 包管理参考文献
-%  \item 提供 \cs{nsfcReferences}\marg{文件名} 命令
+%  \item 提供 \cs{mnsfcReferences}\marg{文件名} 命令
 %  \item 自动居中显示"参考文献"标题
 %  \item 使用楷体四号标题，宋体小四号正文
 %  \item 支持 MR 链接（需要参考文献数据中包含 |MRNUMBER| 字段）
@@ -459,20 +459,20 @@ and the derived files           nsfc.ins,
 %
 %\textbf{项目信息}：
 %\begin{itemize}
-%  \item \cs{nsfcProjectTitle}\marg{项目名称}
-%  \item \cs{nsfcKeywordsZH}\marg{关键词1；关键词2；关键词3}
-%  \item \cs{nsfcKeywordsEN}\marg{keywords1; keywords2; keywords3}
-%  \item \cs{nsfcResearchTypeFree} 或 \cs{nsfcResearchTypeTarget}（研究属性）
+%  \item \cs{mnsfcProjectTitle}\marg{项目名称}
+%  \item \cs{mnsfcKeywordsZH}\marg{关键词1；关键词2；关键词3}
+%  \item \cs{mnsfcKeywordsEN}\marg{keywords1; keywords2; keywords3}
+%  \item \cs{mnsfcResearchTypeFree} 或 \cs{mnsfcResearchTypeTarget}（研究属性）
 %\end{itemize}
 %
-%\textbf{写作提示}：\cs{nsfcNote}\marg{提示内容}：仅在 |draft| 模式下显示灰色提示文字
+%\textbf{写作提示}：\cs{mnsfcNote}\marg{提示内容}：仅在 |draft| 模式下显示灰色提示文字
 %
-%\textbf{标题页}：\cs{nsfcTitlePage}：仅在 |draft| 模式下显示
+%\textbf{标题页}：\cs{mnsfcTitlePage}：仅在 |draft| 模式下显示
 %
 %\textbf{摘要环境}：
 %\begin{itemize}
-%  \item \begin{verbatim}\begin{nsfcAbstractZH}...\end{nsfcAbstractZH}：中文摘要\end{verbatim}
-%  \item \begin{verbatim}\begin{nsfcAbstractEN}...\end{nsfcAbstractEN}：英文摘要\end{verbatim}
+%  \item \begin{verbatim}\begin{mnsfcAbstractZH}...\end{mnsfcAbstractZH}：中文摘要\end{verbatim}
+%  \item \begin{verbatim}\begin{mnsfcAbstractEN}...\end{mnsfcAbstractEN}：英文摘要\end{verbatim}
 %  \item 仅在 |draft| 模式下显示，|final| 模式下自动隐藏
 %\end{itemize}
 %
@@ -489,14 +489,14 @@ and the derived files           nsfc.ins,
 %    \begin{macrocode}
 %<*package>
 %% ==============================
-%% nsfc.sty  (final / draft)
+%% mnsfc.sty  (final / draft)
 %% ==============================
 %% ---------- Options ----------
-\newif\ifnsfc@final
-\newif\ifnsfc@debug
-\DeclareOption{final}{\nsfc@finaltrue}
-\DeclareOption{draft}{\nsfc@finalfalse}
-\DeclareOption{debug}{\nsfc@debugtrue}
+\newif\ifmnsfc@final
+\newif\ifmnsfc@debug
+\DeclareOption{final}{\mnsfc@finaltrue}
+\DeclareOption{draft}{\mnsfc@finalfalse}
+\DeclareOption{debug}{\mnsfc@debugtrue}
 % 使用 \string 避免选项名称被索引
 % 但这样会影响代码可读性，所以改用其他方法
 \ExecuteOptions{draft} %% default
@@ -558,7 +558,7 @@ and the derived files           nsfc.ins,
   \IfFileExists{times.sty}{%
     \RequirePackage{times}%
   }{%
-    \PackageWarning{nsfc}{Times New Roman font not available.%
+    \PackageWarning{mnsfc}{Times New Roman font not available.%
       Using default font.}%
   }%
 }
@@ -597,14 +597,14 @@ and the derived files           nsfc.ins,
   %% 如果 ctex 未加载，尝试延迟执行
   \AtBeginDocument{%
     \@ifundefined{zihao}{%
-      \PackageWarning{nsfc}{ctex package not loaded. Font settings (\zihao,%
+      \PackageWarning{mnsfc}{ctex package not loaded. Font settings (\zihao,%
         \songti) may not work. Please use \string\documentclass{ctexart}%
         or load ctex package.}%
     }{%
       \zihao{-4}%
     }%
     \@ifundefined{songti}{%
-      \PackageWarning{nsfc}{songti command not found. Please use %
+      \PackageWarning{mnsfc}{songti command not found. Please use %
         \string\documentclass{ctexart} or load ctex package.}%
     }{%
       \songti
@@ -627,41 +627,41 @@ and the derived files           nsfc.ins,
 \displaywidowpenalty=50
 
 %% ---------- Metadata ----------
-\newcommand{\nsfcProjectTitle}[1]{\def\nsfc@projecttitle{#1}}
-\newcommand{\nsfc@projecttitle}{（项目名称）}
+\newcommand{\mnsfcProjectTitle}[1]{\def\mnsfc@projecttitle{#1}}
+\newcommand{\mnsfc@projecttitle}{（项目名称）}
 
-\newcommand{\nsfcApplicant}[1]{\def\nsfc@applicant{#1}}
-\newcommand{\nsfcUnit}[1]{\def\nsfc@unit{#1}}
+\newcommand{\mnsfcApplicant}[1]{\def\mnsfc@applicant{#1}}
+\newcommand{\mnsfcUnit}[1]{\def\mnsfc@unit{#1}}
 
-\newcommand{\nsfcKeywordsZH}[1]{\def\nsfc@kwzh{#1}}
-\newcommand{\nsfcKeywordsEN}[1]{\def\nsfc@kwen{#1}}
+\newcommand{\mnsfcKeywordsZH}[1]{\def\mnsfc@kwzh{#1}}
+\newcommand{\mnsfcKeywordsEN}[1]{\def\mnsfc@kwen{#1}}
 
 %% 研究属性：自由探索类基础研究 或 目标导向类基础研究
-\newcommand{\nsfcResearchType}[1]{%
-  \def\nsfc@researchtype{#1}%
+\newcommand{\mnsfcResearchType}[1]{%
+  \def\mnsfc@researchtype{#1}%
 }
-\newcommand{\nsfc@researchtype}{}%% 默认为空
+\newcommand{\mnsfc@researchtype}{}%% 默认为空
 
 %% 便捷命令
-\newcommand{\nsfcResearchTypeFree}{\nsfcResearchType{自由探索类基础研究}}
-\newcommand{\nsfcResearchTypeTarget}{\nsfcResearchType{目标导向类基础研究}}
+\newcommand{\mnsfcResearchTypeFree}{\mnsfcResearchType{自由探索类基础研究}}
+\newcommand{\mnsfcResearchTypeTarget}{\mnsfcResearchType{目标导向类基础研究}}
 
 %% ---------- Draft-only note ----------
-\newcommand{\nsfcNote}[1]{%
-  \ifnsfc@final\relax%
+\newcommand{\mnsfcNote}[1]{%
+  \ifmnsfc@final\relax%
   \else{\par\textcolor{gray}{\small【写作提示】#1}\par}%
   \fi%
 }
 %% ---------- Title ----------
-\newcommand{\nsfcTitlePage}{%
+\newcommand{\mnsfcTitlePage}{%
 \begin{center}
-  \ifnsfc@final
+  \ifmnsfc@final
   \else
-  {\Large\bfseries 国家自然科学基金面上项目申请书\par}
+  {\Large\bfseries 数学类国家自然科学基金面上项目申请书\par}
   \vspace{1em}
-  {\LARGE\bfseries \nsfc@projecttitle\par}
+  {\LARGE\bfseries \mnsfc@projecttitle\par}
   \vspace{0.5em}
-  \ifx\nsfc@researchtype\empty
+  \ifx\mnsfc@researchtype\empty
     %% 如果未设置研究属性，显示提示（左对齐，与中文摘要一致）
     \begin{minipage}{\textwidth}\raggedright
       {\normalfont\kaishu\zihao{4}\textcolor{NSFCRed}{（请选择研究属性：自由探索类基础研究 / 目标导向类基础研究）}\par}%
@@ -669,7 +669,7 @@ and the derived files           nsfc.ins,
   \else
     %% 显示研究属性（左对齐，与中文摘要一致）
     \begin{minipage}{\textwidth}\raggedright
-      {\normalfont\textbf{研究属性：}\nsfc@researchtype}%
+      {\normalfont\textbf{研究属性：}\mnsfc@researchtype}%
     \end{minipage}\par
   \fi
   \vspace{0.5em}
@@ -680,31 +680,31 @@ and the derived files           nsfc.ins,
 
 %% ---------- Abstracts (final only) ----------
 
-\ifnsfc@final
+\ifmnsfc@final
 
   %% ========== FINAL：整块吞掉 ==========
-  \NewEnviron{nsfcAbstractZH}{}
-  \NewEnviron{nsfcAbstractEN}{}
+  \NewEnviron{mnsfcAbstractZH}{}
+  \NewEnviron{mnsfcAbstractEN}{}
 
 \else
 
   %% ========== DRAFT：正常摘要 ==========
-  \NewEnviron{nsfcAbstractZH}{%
+  \NewEnviron{mnsfcAbstractZH}{%
     \par\noindent\normalfont\textbf{中文摘要：}\small
     \BODY\par
-    \noindent\normalfont\textbf{关键词：}\nsfc@kwzh\par
+    \noindent\normalfont\textbf{关键词：}\mnsfc@kwzh\par
   }
-  \NewEnviron{nsfcAbstractEN}{%
+  \NewEnviron{mnsfcAbstractEN}{%
     \par\noindent\textbf{Abstract:}\small
     \BODY\par
-    \noindent\textbf{Keywords: }\nsfc@kwen\par
+    \noindent\textbf{Keywords: }\mnsfc@kwen\par
   }
 
 \fi
 
 %% 在英文摘要结束后自动插入 NSFCP
-\AfterEndEnvironment{nsfcAbstractEN}{%
-\ifnsfc@final\vspace{-1.7\baselineskip}\fi% 减少标题后的间距
+\AfterEndEnvironment{mnsfcAbstractEN}{%
+\ifmnsfc@final\vspace{-1.7\baselineskip}\fi% 减少标题后的间距
 \begin{center}
   {\kaishu \zihao{3} \textbf{报告正文（\( 2026 \)版）}}
 \end{center}
@@ -714,7 +714,7 @@ and the derived files           nsfc.ins,
 \par%
 \songti\zihao{-4}% 恢复正文为宋体小四号
 %% 在正文开始后启用行号（仅在 draft 模式下）
-\ifnsfc@final\relax%
+\ifmnsfc@final\relax%
 \else%
   \modulolinenumbers[5]%% 每 5 行显示一次行号
   \linenumbers%
@@ -730,7 +730,7 @@ punct=quanjiao,
     number = {}, %%\chinese{section}
     numberformat = {（\chinese{section}）},
     format = {
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\nolinenumbers\fi% 跳过 section 标题的行号
       \hspace*{0.74cm}
       \kaishu
@@ -742,7 +742,7 @@ punct=quanjiao,
     beforeskip = 0\baselineskip,
     afterskip  = 0\baselineskip,
     aftertitle = {%
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\linenumbers\fi% 恢复行号
     },
   },
@@ -751,7 +751,7 @@ punct=quanjiao,
     number = {}, %%\chinese{section}
     numberformat = {\normalfont\kaishu\arabic{subsection}.}, 
     format = {
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\nolinenumbers\fi% 跳过 subsection 标题的行号
       \hspace*{0.74cm}
       \kaishu
@@ -763,7 +763,7 @@ punct=quanjiao,
     beforeskip = 0\baselineskip,
     afterskip  = 0\baselineskip,
     aftertitle = {%
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\linenumbers\fi% 恢复行号
     },
   },
@@ -772,7 +772,7 @@ punct=quanjiao,
     number = {},
     numberformat = {（\arabic{subsubsection}）}, % (1)
     format = {
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\nolinenumbers\fi% 跳过 subsubsection 标题的行号
       \hspace*{0.74cm}
       \songti
@@ -783,7 +783,7 @@ punct=quanjiao,
     beforeskip = 0.3\baselineskip,
     afterskip  = 0.2\baselineskip,
     aftertitle = {%
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\linenumbers\fi% 恢复行号
     },
   },
@@ -792,7 +792,7 @@ punct=quanjiao,
     number = {}, %% 不带编号
     numberformat = {},
     format = {
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\nolinenumbers\fi% 跳过 paragraph 标题的行号
       \hspace*{0.74cm}
       \songti
@@ -803,7 +803,7 @@ punct=quanjiao,
     beforeskip = 0.2\baselineskip,
     afterskip  = 0.1\baselineskip,
     aftertitle = {%
-      \ifnsfc@final\relax%
+      \ifmnsfc@final\relax%
       \else\linenumbers\fi% 恢复行号
     },
   }
@@ -858,64 +858,64 @@ punct=quanjiao,
 \let\@oldsubsection\subsection
 
 %% 辅助命令：从标题中移除末尾的冒号（用于目录，支持中文冒号：和英文冒号:）
-%% 使用字符串匹配，将结果存储在 \nsfc@toc@title 中
+%% 使用字符串匹配，将结果存储在 \mnsfc@toc@title 中
 %% 先尝试匹配中文冒号
-\def\nsfc@check@colon@cn#1：#2\@nil{%
+\def\mnsfc@check@colon@cn#1：#2\@nil{%
   \ifx\relax#2\relax
     %% 没有中文冒号，尝试英文冒号
-    \expandafter\nsfc@check@colon@en#1:\@nil
+    \expandafter\mnsfc@check@colon@en#1:\@nil
   \else
     %% 有中文冒号，#1 是冒号前的内容
-    \gdef\nsfc@toc@title{#1}%
+    \gdef\mnsfc@toc@title{#1}%
   \fi
 }
 %% 尝试匹配英文冒号
-\def\nsfc@check@colon@en#1:#2\@nil{%
+\def\mnsfc@check@colon@en#1:#2\@nil{%
   \ifx\relax#2\relax
     %% 没有英文冒号，使用全部内容
-    \gdef\nsfc@toc@title{#1}%
+    \gdef\mnsfc@toc@title{#1}%
   \else
     %% 有英文冒号，#1 是冒号前的内容
-    \gdef\nsfc@toc@title{#1}%
+    \gdef\mnsfc@toc@title{#1}%
   \fi
 }
 %% 主入口
-\def\nsfc@check@colon#1\@nil{%
-  \nsfc@check@colon@cn#1：\@nil
+\def\mnsfc@check@colon#1\@nil{%
+  \mnsfc@check@colon@cn#1：\@nil
 }
 
 %% 修改目录格式：移除 \numberline {} 和格式命令
 %% 重定义 ctex 的 tocline 命令，使其不添加 \numberline{}
 \AtBeginDocument{%
-  \ifnsfc@debug
-    \typeout{^^J[NSFC] 目录格式修复已激活：移除 \numberline{} 和格式命令^^J}%
+  \ifmnsfc@debug
+    \typeout{^^J[MNSFC] 目录格式修复已激活：移除 \numberline{} 和格式命令^^J}%
   \fi
   %% 重定义 \CTEX@section@tocline，不添加 \numberline{}
   \@ifundefined{CTEX@section@tocline}{}{%
     \renewcommand{\CTEX@section@tocline}[2]{#2}%
-    \ifnsfc@debug
-      \typeout{[NSFC] 已重定义 CTEX@section@tocline}%
+    \ifmnsfc@debug
+      \typeout{[MNSFC] 已重定义 CTEX@section@tocline}%
     \fi
   }%
   %% 重定义 \CTEX@subsection@tocline，不添加 \numberline{}
   \@ifundefined{CTEX@subsection@tocline}{}{%
     \renewcommand{\CTEX@subsection@tocline}[2]{#2}%
-    \ifnsfc@debug
-      \typeout{[NSFC] 已重定义 CTEX@subsection@tocline}%
+    \ifmnsfc@debug
+      \typeout{[MNSFC] 已重定义 CTEX@subsection@tocline}%
     \fi
   }%
   %% 重定义 \CTEX@subsubsection@tocline，不添加 \numberline{}
   \@ifundefined{CTEX@subsubsection@tocline}{}{%
     \renewcommand{\CTEX@subsubsection@tocline}[2]{#2}%
-    \ifnsfc@debug
-      \typeout{[NSFC] 已重定义 CTEX@subsubsection@tocline}%
+    \ifmnsfc@debug
+      \typeout{[MNSFC] 已重定义 CTEX@subsubsection@tocline}%
     \fi
   }%
   %% 重定义 \CTEX@paragraph@tocline，不添加 \numberline{}
   \@ifundefined{CTEX@paragraph@tocline}{}{%
     \renewcommand{\CTEX@paragraph@tocline}[2]{#2}%
-    \ifnsfc@debug
-      \typeout{[NSFC] 已重定义 CTEX@paragraph@tocline}%
+    \ifmnsfc@debug
+      \typeout{[MNSFC] 已重定义 CTEX@paragraph@tocline}%
     \fi
   }%
   %% 重新定义 \l@section 以移除 \numberline{}
@@ -990,25 +990,25 @@ punct=quanjiao,
 
 % 重新定义 \section，支持 \section[说明]{标题} 格式
 \RenewDocumentCommand{\section}{o m}{%
-  \ifnsfc@debug
-    \typeout{[NSFC] \section 命令已执行：标题="#2"}%
+  \ifmnsfc@debug
+    \typeout{[MNSFC] \section 命令已执行：标题="#2"}%
   \fi
-  \ifnsfc@final\relax%
+  \ifmnsfc@final\relax%
   \else\nolinenumbers\fi% 跳过 section 标题的行号
   %% 无论是否有可选参数，都要移除标题中的冒号用于目录
-  \expandafter\nsfc@check@colon#2\@nil
-  \ifnsfc@debug
-    \typeout{[NSFC] 移除冒号：原标题="#2"，目录标题="\nsfc@toc@title"}%
+  \expandafter\mnsfc@check@colon#2\@nil
+  \ifmnsfc@debug
+    \typeout{[MNSFC] 移除冒号：原标题="#2"，目录标题="\mnsfc@toc@title"}%
   \fi
   \IfNoValueTF{#1}{%
     % 没有说明文字
-    \@oldsection[\nsfc@toc@title]{#2}%
+    \@oldsection[\mnsfc@toc@title]{#2}%
   }{%
     % 有说明文字
-    \@oldsection[\nsfc@toc@title]{#2}%
+    \@oldsection[\mnsfc@toc@title]{#2}%
     \kaishu\zihao{4}\blue{#1}\par%
   }%
-  \ifnsfc@final\relax%
+  \ifmnsfc@final\relax%
   \else\linenumbers\fi%% 恢复行号
   \songti\zihao{-4}%% 确保后续正文为宋体小四号
   \allowbreak
@@ -1016,10 +1016,10 @@ punct=quanjiao,
 
 % 重新定义 \subsection，支持 \subsection[说明]{标题} 格式
 \RenewDocumentCommand{\subsection}{o m}{%
-  \ifnsfc@debug
-    \typeout{[NSFC] \subsection 命令已执行：标题="#2"}%
+  \ifmnsfc@debug
+    \typeout{[MNSFC] \subsection 命令已执行：标题="#2"}%
   \fi
-  \ifnsfc@final\relax%
+  \ifmnsfc@final\relax%
   \else\nolinenumbers\fi% 跳过 subsection 标题的行号
   \IfNoValueTF{#1}{%
     %% 没有说明文字
@@ -1029,7 +1029,7 @@ punct=quanjiao,
     %% 使用可选参数指定目录标题，显示标题后面加说明文字
     \@oldsubsection[#2]{#2 {\normalfont\kaishu\zihao{4}#1}}%
   }%
-  \ifnsfc@final\relax%
+  \ifmnsfc@final\relax%
   \else\linenumbers\fi%% 恢复行号
   \songti\zihao{-4}%% 确保后续正文为宋体小四号
   \allowbreak
@@ -1063,13 +1063,13 @@ punct=quanjiao,
   }%
   %% 如果 amsrefs 未加载，给出提示
   \@ifundefined{bibdiv}{%
-    \PackageWarning{nsfc}{amsrefs package not loaded. %
+    \PackageWarning{mnsfc}{amsrefs package not loaded. %
       Please load it in your document.}%
   }{}%
 }
 
 % 参考文献命令
-\newcommand{\nsfcReferences}[1]{%
+\newcommand{\mnsfcReferences}[1]{%
   \par\vspace{0.5\baselineskip}%
   \begin{center}%
     \kaishu\zihao{4}\textbf{参考文献}%
@@ -1084,17 +1084,17 @@ punct=quanjiao,
 %% 字数统计功能（基于行号计算）
 %% ==================================================
 %% 创建计数器用于字数统计
-\newcounter{nsfc@totalpages}
-\newcounter{nsfc@totallines}
-\newcounter{nsfc@wordcount}
-\newcounter{nsfc@excludedlines}%% 被排除的短行计数
+\newcounter{mnsfc@totalpages}
+\newcounter{mnsfc@totallines}
+\newcounter{mnsfc@wordcount}
+\newcounter{mnsfc@excludedlines}%% 被排除的短行计数
 
 %% 标记短行（如 "无。"），使其不参与行号计数
-\newcommand{\nsfcExcludeLine}[1]{%
-  \ifnsfc@final%
+\newcommand{\mnsfcExcludeLine}[1]{%
+  \ifmnsfc@final%
     #1%
   \else%
-    \stepcounter{nsfc@excludedlines}%% 增加排除行计数
+    \stepcounter{mnsfc@excludedlines}%% 增加排除行计数
     \nolinenumbers%% 跳过这一行的行号显示
     #1\par%% 确保换行
     \linenumbers%% 恢复行号计数
@@ -1106,12 +1106,12 @@ punct=quanjiao,
 %% NSFC 格式：小四号，行距 22 磅
 %% 每行约 35 个汉字（包括符号）
 %% 计算公式：字数 = 行号 × 35字/行
-\newcommand{\nsfcWordCount}{%
-  \ifnsfc@final\relax%
+\newcommand{\mnsfcWordCount}{%
+  \ifmnsfc@final\relax%
   \else%
     %% 先获取行号值（在禁用行号之前）
     %% 获取总页数
-    \setcounter{nsfc@totalpages}{\getpagerefnumber{LastPage}}%
+    \setcounter{mnsfc@totalpages}{\getpagerefnumber{LastPage}}%
     %% 禁用行号（字数统计页面不需要行号）
     \nolinenumbers%
     %% 使用 \par 和 \vfill 代替 \clearpage，避免在文档末尾的 shipout 错误
@@ -1124,14 +1124,14 @@ punct=quanjiao,
     %% 尝试获取行号（如果 lineno 已启用）
     \@ifundefined{c@linenumber}{%
       %% 如果 lineno 未启用，使用页数估算
-      \setcounter{nsfc@totallines}%
-        {\numexpr\value{nsfc@totalpages}*35\relax}%
-      \setcounter{nsfc@wordcount}%
-        {\numexpr\value{nsfc@totallines}*35\relax}%
+      \setcounter{mnsfc@totallines}%
+        {\numexpr\value{mnsfc@totalpages}*35\relax}%
+      \setcounter{mnsfc@wordcount}%
+        {\numexpr\value{mnsfc@totallines}*35\relax}%
       \noindent 正文总页数：%
-        \number\numexpr\value{nsfc@totalpages}-1\relax 页\\
-      \noindent 正文行数（估算）：约 \the\value{nsfc@totallines} 行\\
-      \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
+        \number\numexpr\value{mnsfc@totalpages}-1\relax 页\\
+      \noindent 正文行数（估算）：约 \the\value{mnsfc@totallines} 行\\
+      \noindent 正文字数（估算）：约 \the\value{mnsfc@wordcount} 字\\
       \vspace{0.3\baselineskip}%
       \noindent\textup{注：行号功能未启用，使用页数估算。}%
     }{%
@@ -1139,15 +1139,15 @@ punct=quanjiao,
       %% lineno 包使用 \c@linenumber 作为行号计数器
       %% 获取当前行号（在文档末尾调用时，这就是最后一行的行号）
       %% 减去被排除的短行数
-      \setcounter{nsfc@totallines}{\numexpr\value{linenumber}-1\relax}%
-      \setcounter{nsfc@wordcount}{\numexpr\value{nsfc@totallines}*35\relax}%
+      \setcounter{mnsfc@totallines}{\numexpr\value{linenumber}-1\relax}%
+      \setcounter{mnsfc@wordcount}{\numexpr\value{mnsfc@totallines}*35\relax}%
       \noindent 正文总页数：%
-        \number\numexpr\value{nsfc@totalpages}-1\relax 页\\
-      \noindent 正文行数（基于行号，已排除短行）：\the\value{nsfc@totallines} 行\\
-      \ifnum\value{nsfc@excludedlines}>0%
-        \noindent 已排除短行数：\the\value{nsfc@excludedlines} 行\\
+        \number\numexpr\value{mnsfc@totalpages}-1\relax 页\\
+      \noindent 正文行数（基于行号，已排除短行）：\the\value{mnsfc@totallines} 行\\
+      \ifnum\value{mnsfc@excludedlines}>0%
+        \noindent 已排除短行数：\the\value{mnsfc@excludedlines} 行\\
       \fi%
-      \noindent 正文字数（估算）：约 \the\value{nsfc@wordcount} 字\\
+      \noindent 正文字数（估算）：约 \the\value{mnsfc@wordcount} 字\\
       \vspace{0.3\baselineskip}%
       \noindent\textup{注：字数 = 行数 × 35字/行。此统计为估算值，仅供参考。实际字数可能因排版、图表、公式等因素有所差异。}%
     }%
@@ -1156,7 +1156,7 @@ punct=quanjiao,
   \fi%
 }
 \usepackage{zhlipsum}
-\ifnsfc@final
+\ifmnsfc@final
 \RenewDocumentCommand{\zhlipsum}{o}{}
 \fi
 %</package>
@@ -1171,32 +1171,32 @@ punct=quanjiao,
 %%!TeX encoding = utf8
 \documentclass[UTF8,zihao=-4]{ctexart} %%for macOS set: fontset=macnew
 %% ==模式切换 =====
-\usepackage[final]{nsfc} %%draft is default, final is for the final version
+\usepackage[final]{mnsfc} %%draft is default, final is for the final version
 %% 加载 amsrefs 包，可以在这里控制选项
 \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}  %% 如果需要启用引文页码, 添加 backrefs 选项
 
-\nsfcProjectTitle{（填写项目名称）}
-\nsfcKeywordsZH{关键词1；关键词2；关键词3}
-\nsfcKeywordsEN{keywords1; keywords2; keywords3}
+\mnsfcProjectTitle{（填写项目名称）}
+\mnsfcKeywordsZH{关键词1；关键词2；关键词3}
+\mnsfcKeywordsEN{keywords1; keywords2; keywords3}
 %% 选择研究属性（二选一）：
-%% \nsfcResearchTypeFree  %% 自由探索类基础研究
-%% \nsfcResearchTypeTarget %% 目标导向类基础研究
+%% \mnsfcResearchTypeFree  %% 自由探索类基础研究
+%% \mnsfcResearchTypeTarget %% 目标导向类基础研究
 %% 或者使用自定义文本：
-%% \nsfcResearchType{自由探索类基础研究}
-%% \nsfcResearchType{目标导向类基础研究}
-\nsfcResearchTypeFree  %% 示例：选择自由探索类基础研究
+%% \mnsfcResearchType{自由探索类基础研究}
+%% \mnsfcResearchType{目标导向类基础研究}
+\mnsfcResearchTypeFree  %% 示例：选择自由探索类基础研究
 
  \begin{document}
-   \nsfcTitlePage
-   \begin{nsfcAbstractZH}
+   \mnsfcTitlePage
+   \begin{mnsfcAbstractZH}
      这里是\emph{最终可提交版本}的中文摘要内容。
-   \end{nsfcAbstractZH}
+   \end{mnsfcAbstractZH}
 
-   \begin{nsfcAbstractEN}
+   \begin{mnsfcAbstractEN}
      This is the English abstract for the NSFC proposal.
-   \end{nsfcAbstractEN}
+   \end{mnsfcAbstractEN}
 
-  \nsfcNote{正文开始...}
+  \mnsfcNote{正文开始...}
   \zhlipsum[1-2]
   %% 使用示例：subsubsection、paragraph、enumerate、itemize
    \subsubsection{三级标题示例}
@@ -1248,10 +1248,10 @@ punct=quanjiao,
   从 \eqref{eq:NL}知,\ldots
   %%\bibliographystyle{plain}%
   \nocite{*}%
-   \nsfcReferences{nsfc-refs}
+   \mnsfcReferences{mnsfc-refs}
 
    \section[（提纲不做限制，请按照研究工作的自身逻辑撰写。应提炼出特色与创新点、年度研究计划）]{研究内容：}
-   \nsfcNote{建议用"科学问题 → 国际现状 → 关键缺口 → 本项目目标"结构}
+   \mnsfcNote{建议用"科学问题 → 国际现状 → 关键缺口 → 本项目目标"结构}
    \zhlipsum[5-6]
    \section{研究基础：}
 
@@ -1261,24 +1261,24 @@ punct=quanjiao,
    \subsection[（包括已具备的实验条件，尚缺少的实验条件和拟解决的途径，包括利用国家实验室、全国重点实验室和部门重点实验室等研究基地的计划与落实情况）；]{工作条件}
    \zhlipsum[9-15]
    \subsection[（申请人和主要参与者正在承担的与本项目相关的科研项目情况，包括国家自然科学基金的项目和国家其他科技计划项目，要注明项目的资助机构、项目类别、批准号、项目名称、获资助金额、起止年月、与本项目的关系及负责的内容等）；]{正在承担的与本项目相关的科研项目情况}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[（对申请人负责的前一个已资助期满的科学基金项目（项目名称及批准号）完成情况、后续研究进展及与本申请项目的关系加以详细说明。另附该项目的研究工作总结摘要（限500字）和相关成果详细目录）。]{完成国家自然科学基金项目情况}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \section{其他需要说明的情况：}
   \subsection[（列明同年申请的其他项目的项目类型、项目名称信息，并说明与本项目之间的区别与联系；已收到自然科学基金委不予受理或不予资助决定的，无需列出）。]{申请人同年申请不同类型的国家自然科学基金项目情况}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[具有高级专业技术职务（职称）的申请人或者主要参与者是否存在同年申请或者参与申请国家自然科学基金项目的单位不一致的情况；如存在上述情况，列明所涉及人员的姓名，申请或参与申请的其他项目的项目类型、项目名称、单位名称、上述人员在该项目中是申请人还是参与者，并说明单位不一致原因。]{}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[具有高级专业技术职务（职称）的申请人或者主要参与者是否存在与正在承担的国家自然科学基金项目的单位不一致的情况；如存在上述情况，列明所涉及人员的姓名，正在承担项目的批准号、项目类型、项目名称、单位名称、起止年月，并说明单位不一致原因。]{}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[申请人和主要参与者同年以不同专业技术职务（职称）申请或参与申请科学基金项目的情况（应详细说明原因）。]{}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[申请人在撰写本申请书时使用生成式人工智能的情况，请详细说明申请书中使用的位置和内容。]{}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   \subsection[（包括但不限于使用以他人名义申报过的申请书；如有，请详细说明）。]{其他}
-  \nsfcExcludeLine{无。}
+  \mnsfcExcludeLine{无。}
   %% 字数统计（仅在 draft 模式下显示）
-  \nsfcWordCount
+  \mnsfcWordCount
 \end{document}
 %</example-main>
 %    \end{macrocode}
