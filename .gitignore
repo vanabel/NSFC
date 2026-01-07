@@ -20,12 +20,16 @@
 # PDF files (excluded - generated files should not be tracked)
 *.pdf
 
-# Generated files from nsfc.dtx (via docstrip)
-nsfc.sty
-nsfc.ins
-nsfc-main.tex
-nsfc-refs.bib
+# Generated files from mnsfc.dtx (via docstrip)
+mnsfc.sty
+mnsfc.ins
+mnsfc-main.tex
+mnsfc-refs.bib
 README.txt
+
+# Release files (zip archives and distribution directories)
+*.zip
+mnsfc-v*/
 
 # Backup files
 *~
