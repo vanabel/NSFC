@@ -291,9 +291,11 @@ and the derived files           mnsfc.ins,
 % \subsection{项目基本信息设置}
 %
 % \begin{verbatim}
-% \mnsfcProjectTitle{（填写项目名称）}
+% \mnsfcProjectTitle{（填写项目名称）}{（Project Title）}
+% \mnsfcApplicationCode{申请代码1}{申请代码2}  % 申请代码
 % \mnsfcKeywordsZH{关键词1；关键词2；关键词3}
 % \mnsfcKeywordsEN{keywords1; keywords2; keywords3}
+% \mnsfcResearchField{主要研究领域}  % 主要研究领域（可选，默认为空）
 % % 选择研究属性（二选一）：
 % % \mnsfcResearchTypeFree  % 自由探索类基础研究
 % % \mnsfcResearchTypeTarget % 目标导向类基础研究
@@ -459,9 +461,11 @@ and the derived files           mnsfc.ins,
 %
 %\textbf{项目信息}：
 %\begin{itemize}
-%  \item \cs{mnsfcProjectTitle}\marg{项目名称}
+%  \item \cs{mnsfcProjectTitle}\marg{中文项目名称}\marg{英文项目名称}
+%  \item \cs{mnsfcApplicationCode}\marg{申请代码1}\marg{申请代码2}（申请代码，位于标题和研究属性之间）
 %  \item \cs{mnsfcKeywordsZH}\marg{关键词1；关键词2；关键词3}
 %  \item \cs{mnsfcKeywordsEN}\marg{keywords1; keywords2; keywords3}
+%  \item \cs{mnsfcResearchField}\marg{主要研究领域}（可选，默认为空，显示在英文关键词之后）
 %  \item \cs{mnsfcResearchTypeFree} 或 \cs{mnsfcResearchTypeTarget}（研究属性）
 %\end{itemize}
 %
@@ -627,14 +631,31 @@ and the derived files           mnsfc.ins,
 \displaywidowpenalty=50
 
 %% ---------- Metadata ----------
-\newcommand{\mnsfcProjectTitle}[1]{\def\mnsfc@projecttitle{#1}}
+%% 项目名称：支持中英文
+\newcommand{\mnsfcProjectTitle}[2]{%
+  \def\mnsfc@projecttitle{#1}%
+  \def\mnsfc@projecttitleen{#2}%
+}
 \newcommand{\mnsfc@projecttitle}{（项目名称）}
+\newcommand{\mnsfc@projecttitleen}{（Project Title）}
 
 \newcommand{\mnsfcApplicant}[1]{\def\mnsfc@applicant{#1}}
 \newcommand{\mnsfcUnit}[1]{\def\mnsfc@unit{#1}}
 
 \newcommand{\mnsfcKeywordsZH}[1]{\def\mnsfc@kwzh{#1}}
 \newcommand{\mnsfcKeywordsEN}[1]{\def\mnsfc@kwen{#1}}
+
+%% 申请代码
+\newcommand{\mnsfcApplicationCode}[2]{%
+  \def\mnsfc@appcodeone{#1}%
+  \def\mnsfc@appcodetwo{#2}%
+}
+\newcommand{\mnsfc@appcodeone}{}%% 默认为空
+\newcommand{\mnsfc@appcodetwo}{}%% 默认为空
+
+%% 主要研究领域
+\newcommand{\mnsfcResearchField}[1]{\def\mnsfc@researchfield{#1}}
+\newcommand{\mnsfc@researchfield}{}%% 默认为空
 
 %% 研究属性：自由探索类基础研究 或 目标导向类基础研究
 \newcommand{\mnsfcResearchType}[1]{%
@@ -660,7 +681,29 @@ and the derived files           mnsfc.ins,
   {\Large\bfseries 数学类国家自然科学基金面上项目申请书\par}
   \vspace{1em}
   {\LARGE\bfseries \mnsfc@projecttitle\par}
+  \vspace{0.3em}
+  {\large \mnsfc@projecttitleen\par}
   \vspace{0.5em}
+  %% 显示申请代码（位于标题和研究属性之间）
+  \begin{minipage}{\textwidth}\raggedright
+    \ifx\mnsfc@appcodeone\empty
+      \ifx\mnsfc@appcodetwo\empty
+        %% 两个申请代码都为空，不显示
+      \else
+        %% 只有申请代码2，只显示申请代码2
+        {\normalfont\textbf{申请代码2：}\mnsfc@appcodetwo\par}%
+      \fi
+    \else
+      \ifx\mnsfc@appcodetwo\empty
+        %% 只有申请代码1，只显示申请代码1
+        {\normalfont\textbf{申请代码1：}\mnsfc@appcodeone\par}%
+      \else
+        %% 两个申请代码都有，都显示
+        {\normalfont\textbf{申请代码1：}\mnsfc@appcodeone\quad\textbf{申请代码2：}\mnsfc@appcodetwo\par}%
+      \fi
+    \fi
+  \end{minipage}\par
+  %%\vspace{0.3em}
   \ifx\mnsfc@researchtype\empty
     %% 如果未设置研究属性，显示提示（左对齐，与中文摘要一致）
     \begin{minipage}{\textwidth}\raggedright
@@ -698,6 +741,11 @@ and the derived files           mnsfc.ins,
     \par\noindent\textbf{Abstract:}\small
     \BODY\par
     \noindent\textbf{Keywords: }\mnsfc@kwen\par
+    \ifx\mnsfc@researchfield\empty
+      %% 主要研究领域为空，不显示
+    \else
+      \noindent\textbf{主要研究领域：}\mnsfc@researchfield\par
+    \fi
   }
 
 \fi
@@ -1170,15 +1218,17 @@ punct=quanjiao,
 %<*example-main>
 %% -*- mode: TeX -*-
 %% -*- coding: utf-8 -*-
-\documentclass[UTF8,zihao=-4]{ctexart} %%for macOS set: fontset=macnew
+\documentclass[UTF8,zihao=-4, fontset=macnew]{ctexart} %%for macOS set: fontset=macnew
 %% ==模式切换 =====
-\usepackage[final]{mnsfc} %%draft is default, final is for the final version
+\usepackage[draft]{mnsfc} %%draft is default, final is for the final version
 %% 加载 amsrefs 包，可以在这里控制选项
 \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}  %% 如果需要启用引文页码, 添加 backrefs 选项
 
-\mnsfcProjectTitle{（填写项目名称）}
+\mnsfcProjectTitle{（填写项目名称）}{（Project Title）}
+\mnsfcApplicationCode{申请代码1}{申请代码2}  %% 申请代码
 \mnsfcKeywordsZH{关键词1；关键词2；关键词3}
 \mnsfcKeywordsEN{keywords1; keywords2; keywords3}
+\mnsfcResearchField{主要研究领域}  %% 主要研究领域（可选，默认为空）
 %% 选择研究属性（二选一）：
 %% \mnsfcResearchTypeFree  %% 自由探索类基础研究
 %% \mnsfcResearchTypeTarget %% 目标导向类基础研究

@@ -8,7 +8,7 @@
 .PHONY: main pkg doc clean distclean all FORCE_MAKE help
 
 NAME = mnsfc
-VER = v1.0.1
+VER = v1.0.2
 ZIPNAME = $(NAME)-$(VER).zip
 UTREE = $(shell kpsewhich --var-value TEXMFHOME)
 LOCAL = $(shell kpsewhich --var-value TEXMFLOCAL)
