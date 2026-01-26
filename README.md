@@ -1,7 +1,7 @@
 # MNSFC Proposal Template
 
 [![License](https://img.shields.io/badge/license-LPPL%201.3c-blue.svg)](http://www.latex-project.org/lppl.txt)
-[![Version](https://img.shields.io/badge/version-v1.0.0-green.svg)](https://github.com/vanabel/MNSFC/releases)
+[![Version](https://img.shields.io/badge/version-v1.0.2-green.svg)](https://github.com/vanabel/MNSFC/releases)
 [![LaTeX](https://img.shields.io/badge/LaTeX-2.09%2B-orange.svg)](https://www.latex-project.org/)
 
 数学类国家自然科学基金申请书 LaTeX 模板
@@ -59,9 +59,11 @@ make help
 2. **编辑示例文档**：
    编辑 `mnsfc-main.tex`，设置项目信息：
    ```latex
-   \mnsfcProjectTitle{（填写项目名称）}
+   \mnsfcProjectTitle{（填写项目名称）}{（Project Title）}
+   \mnsfcApplicationCode{申请代码1}{申请代码2}  % 申请代码
    \mnsfcKeywordsZH{关键词1；关键词2；关键词3}
    \mnsfcKeywordsEN{keywords1; keywords2; keywords3}
+   \mnsfcResearchField{主要研究领域}  % 主要研究领域（可选）
    ```
 
 3. **切换模式**：
