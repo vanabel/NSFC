@@ -37,6 +37,65 @@ make all
 make help
 ```
 
+### 安装样式包
+
+将 `mnsfc.sty` 安装到 TeX 能找到的位置后，可在任意文档中 `\usepackage{mnsfc}` 使用。
+
+**自动安装（推荐）**
+
+按 TEXMF 标准一次性安装（sty → `tex/`，dtx/ins → `source/`，pdf → `doc/`，示例 → `doc/.../examples/`）：
+
+```bash
+make pkg doc
+make install       # 系统：安装到 TEXMFLOCAL（需 sudo）
+# 或
+make install-user  # 用户：安装到 TEXMFHOME，无需 sudo
+```
+
+**方式一：用户目录（手动）**
+
+```bash
+# 1. 查看你的 TEXMFHOME（用户级 tex 树）
+kpsewhich -var-value TEXMFHOME
+# 若为空，默认为 ~/texmf 或 ~/Library/texmf (macOS)
+
+# 2. 在 TEXMFHOME 下建目录并复制 .sty
+mkdir -p "$(kpsewhich -var-value TEXMFHOME)/tex/latex/mnsfc"
+cp mnsfc.sty "$(kpsewhich -var-value TEXMFHOME)/tex/latex/mnsfc/"
+
+# 3. 刷新文件名数据库（TeX Live）
+mktexlsr
+```
+
+**方式二：系统本地树（texmf-local）**
+
+安装到 TeX Live 的本地树后，所有用户均可使用：
+
+```bash
+# 1. 查看 TEXMFLOCAL 路径（本地树，随 TeX Live 安装位置变化）
+kpsewhich -var-value TEXMFLOCAL
+
+# 2. 创建目录并复制 .sty
+sudo mkdir -p "$(kpsewhich -var-value TEXMFLOCAL)/tex/latex/mnsfc"
+sudo cp mnsfc.sty "$(kpsewhich -var-value TEXMFLOCAL)/tex/latex/mnsfc/"
+
+# 3. 刷新文件名数据库
+sudo mktexlsr
+```
+
+**方式三：与文档同目录**
+
+将 `mnsfc.sty` 放在与你的 `.tex` 文件同一目录，无需安装。
+
+**检查是否安装成功**
+
+```bash
+# 查看 TeX 会使用到的 mnsfc.sty 的完整路径
+kpsewhich mnsfc.sty
+```
+
+若输出一个路径（例如 `…/tex/latex/mnsfc/mnsfc.sty`，具体前缀由 `TEXMFLOCAL` 或 `TEXMFHOME` 决定），说明安装成功；无输出则说明当前目录或 TEXMF 中未找到 `mnsfc.sty`。
+
 ## 功能特性
 
 - **双模式支持**：`draft` 模式（显示辅助信息）和 `final` 模式（仅显示正文）
@@ -94,6 +153,58 @@ make help
 - XeLaTeX（推荐，支持中文字体）
 - 必需包：`ctex`, `geometry`, `setspace`, `fancyhdr`, `lastpage`, `refcount`, `graphicx`, `xcolor`, `hyperref`, `bookmark`, `enumitem`, `amsmath`, `amssymb`, `microtype`, `environ`, `etoolbox`, `xparse`, `totcount`, `lineno`
 - 可选包：`amsrefs`（用于参考文献）
+
+## 参考文献与 arXiv 支持
+
+本模板使用 [amsrefs](https://ctan.org/pkg/amsrefs) 管理参考文献。若需要**正确显示 arXiv 预印本**（带超链接、eprint 等），可配合 [AMSRefs-arXiv-Support](https://github.com/vanabel/AMSRefs-arXiv-Support) 使用。
+
+### 安装 AMSRefs-arXiv-Support
+
+将所需 `.bst` 文件复制到项目目录或 TeX 能找到的路径（如 `texmf-local/bibtex/bst/`）。常用样式：
+
+| 样式       | 文件      | 说明           |
+| ---------- | --------- | -------------- |
+| 数字       | amsrn.bst | 默认，如 [1]、[2] |
+| 作者-年份  | amsra.bst | 如 [Smi20]     |
+
+### 基本用法
+
+1. **加载包**（在 `\usepackage{mnsfc}` 之前或之后均可，amsrefs 选项按需选择）：
+
+   ```latex
+   \usepackage[backref=page]{hyperref}   % 需要引文页码时
+   \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}
+   ```
+
+2. **配置 arXiv 条目**（重要）：在加载 amsrefs 之后添加下列 `\BibSpec`，否则 arXiv 条目可能格式异常：
+
+   ```latex
+   \BibSpec{misc}{%
+     +{} {\PrintAuthors} {author}
+     +{,} { \textit} {title}
+     +{,} { } {date}
+     +{,} { } {eprint}
+     +{,} { } {note}
+     +{.} {} {transition}
+   }
+   ```
+
+3. **正文中引用**：与平时一致，用 `\cite{key}`，参考文献处用本模板命令 `\mnsfcReferences{你的bib文件名}`。
+
+### .bib 中 arXiv 示例
+
+```bibtex
+@misc{Parker2022,
+    title={Concentrating Local Solutions of the Two-Spinor Seiberg-Witten Equations},
+    author={Gregory J. Parker},
+    year={2022},
+    eprint={2210.08148},
+    archivePrefix={arXiv},
+    primaryClass={math.DG},
+}
+```
+
+更多选项（手工标签、biblist 等）见 [AMSRefs-arXiv-Support 说明](https://github.com/vanabel/AMSRefs-arXiv-Support)。
 
 ## 🤝 贡献
 

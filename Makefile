@@ -5,13 +5,18 @@
 # Also, include non-file targets in .PHONY
 # so they are run regardless of any
 # file of the given name existing.
-.PHONY: main pkg doc clean distclean all FORCE_MAKE help
+.PHONY: main pkg doc clean distclean all install install-user zip FORCE_MAKE help
 
 NAME = mnsfc
-VER = v1.0.2
+VER = v1.0.3
 ZIPNAME = $(NAME)-$(VER).zip
-UTREE = $(shell kpsewhich --var-value TEXMFHOME)
-LOCAL = $(shell kpsewhich --var-value TEXMFLOCAL)
+UTREE = $(shell kpsewhich -var-value TEXMFHOME)
+LOCAL = $(shell kpsewhich -var-value TEXMFLOCAL)
+# TEXMF standard layout: tex/ (sty), source/ (dtx,ins), doc/ (pdf, examples)
+DIR_TEX    = $(LOCAL)/tex/latex/$(NAME)
+DIR_SOURCE = $(LOCAL)/source/latex/$(NAME)
+DIR_DOC    = $(LOCAL)/doc/latex/$(NAME)
+DIR_EXAMPLES = $(DIR_DOC)/examples
 
 # make without parameter will use make main
 # rule of make: target can be object file or a label
@@ -59,6 +64,27 @@ distclean :
 	latexmk -CA $(NAME)-main.tex
 	rm -f $(NAME).sty $(NAME).ins $(NAME).pdf $(NAME)-main.pdf
 
+# Install into TEXMFLOCAL (system-wide). Requires sudo.
+# Layout: tex/latex/mnsfc/*.sty, source/latex/mnsfc/*.dtx|ins, doc/latex/mnsfc/*.pdf, doc/latex/mnsfc/examples/*.tex|bib
+install : pkg doc
+	@echo "Installing to $(LOCAL)"
+	sudo mkdir -p $(DIR_TEX) $(DIR_SOURCE) $(DIR_DOC) $(DIR_EXAMPLES)
+	sudo cp $(NAME).sty $(DIR_TEX)/
+	sudo cp $(NAME).dtx $(NAME).ins $(DIR_SOURCE)/
+	sudo cp $(NAME).pdf $(DIR_DOC)/
+	sudo cp $(NAME)-main.tex $(NAME)-refs.bib $(DIR_EXAMPLES)/ 2>/dev/null || true
+	sudo mktexlsr
+
+# Install into TEXMFHOME (user tree). No sudo.
+install-user : pkg doc
+	@echo "Installing to $(UTREE)"
+	mkdir -p $(UTREE)/tex/latex/$(NAME) $(UTREE)/source/latex/$(NAME) $(UTREE)/doc/latex/$(NAME) $(UTREE)/doc/latex/$(NAME)/examples
+	cp $(NAME).sty $(UTREE)/tex/latex/$(NAME)/
+	cp $(NAME).dtx $(NAME).ins $(UTREE)/source/latex/$(NAME)/
+	cp $(NAME).pdf $(UTREE)/doc/latex/$(NAME)/
+	cp $(NAME)-main.tex $(NAME)-refs.bib $(UTREE)/doc/latex/$(NAME)/examples/ 2>/dev/null || true
+	mktexlsr
+
 zip : pkg doc main
 	mkdir -p $(NAME)-$(VER) 
 	cp -rf $(NAME).{dtx,sty,pdf} \
@@ -76,9 +102,12 @@ help:
 	@echo "  make pkg      - Generate $(NAME).sty from $(NAME).dtx"
 	@echo "  make doc      - Generate documentation from $(NAME).dtx"
 	@echo "  make all      - Generate sty, compile main document and doc"
+	@echo "  make install  - Install to TEXMFLOCAL (system-wide, needs sudo)"
+	@echo "  make install-user - Install to TEXMFHOME (user tree)"
 	@echo "  make clean    - Remove auxiliary files"
 	@echo "  make distclean - Remove all generated files including PDFs"
 	@echo "  make zip      - Create distribution zip file"
 	@echo "  make help     - Show this help message"
 	@echo ""
+	@echo "Install layout: tex/ (sty), source/ (dtx,ins), doc/ (pdf), doc/.../examples/ (main.tex, refs.bib)"
 	@echo "Note: Uses latexmk with XeLaTeX for compilation."

@@ -145,7 +145,7 @@ and the derived files           mnsfc.ins,
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %<package>\ProvidesPackage{mnsfc}
 %<*package>
-[2026/01/06 v.1.0.0 一个数学类国家自然科学基金写作宏包]
+[2026/02/13 v.1.0.3 A mathematical writing package for the National Natural Science Foundation of China]
 %</package>
 %
 %
@@ -853,6 +853,7 @@ punct=quanjiao,
     aftertitle = {%
       \ifmnsfc@final\relax%
       \else\linenumbers\fi% 恢复行号
+      .\space
     },
   }
 }
@@ -1218,9 +1219,9 @@ punct=quanjiao,
 %<*example-main>
 %% -*- mode: TeX -*-
 %% -*- coding: utf-8 -*-
-\documentclass[UTF8,zihao=-4, fontset=macnew]{ctexart} %%for macOS set: fontset=macnew
+\documentclass[UTF8,zihao=-4]{ctexart} %%for macOS set: fontset=macnew
 %% ==模式切换 =====
-\usepackage[draft]{mnsfc} %%draft is default, final is for the final version
+\usepackage[final]{mnsfc} %%draft is default, final is for the final version
 %% 加载 amsrefs 包，可以在这里控制选项
 \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}  %% 如果需要启用引文页码, 添加 backrefs 选项
 
@@ -1253,7 +1254,7 @@ punct=quanjiao,
    \subsubsection{三级标题示例}
    这是三级标题下的正文内容。三级标题使用编号格式 (1), (2), (3)...
 
-   \paragraph{段落标题示例（不带编号）}
+   \paragraph{段落标题示例}
    这是段落标题下的正文内容。段落标题不带编号，仅作为强调使用。
 
    \subsubsection{列表环境示例}
