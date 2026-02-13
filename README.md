@@ -1,4 +1,4 @@
-# MNSFC Proposal Template
+# mNSFC Proposal Template
 
 [![License](https://img.shields.io/badge/license-LPPL%201.3c-blue.svg)](http://www.latex-project.org/lppl.txt)
 [![Version](https://img.shields.io/badge/version-v1.0.2-green.svg)](https://github.com/vanabel/MNSFC/releases)
