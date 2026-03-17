@@ -62,7 +62,7 @@ distclean :
 	latexmk -CA
 	latexmk -CA $(NAME).dtx
 	latexmk -CA $(NAME)-main.tex
-	rm -f $(NAME).sty $(NAME).ins $(NAME).pdf $(NAME)-main.pdf
+	rm -f $(NAME).sty $(NAME).ins $(NAME).pdf $(NAME)-main.pdf $(NAME)-main.bbl
 
 # Install into TEXMFLOCAL (system-wide). Requires sudo.
 # Layout: tex/latex/mnsfc/*.sty, source/latex/mnsfc/*.dtx|ins, doc/latex/mnsfc/*.pdf, doc/latex/mnsfc/examples/*.tex|bib
@@ -86,13 +86,14 @@ install-user : pkg doc
 	mktexlsr
 
 zip : pkg doc main
-	mkdir -p $(NAME)-$(VER) 
+	mkdir -p releases
+	mkdir -p releases/$(NAME)-$(VER) 
 	cp -rf $(NAME).{dtx,sty,pdf} \
 	  README.md $(NAME)-main.{tex,pdf} \
-	  $(NAME)-refs.bib Makefile .latexmkrc $(NAME)-$(VER)
-	rm -rf *.zip
-	zip -r $(NAME)-$(VER).zip $(NAME)-$(VER)
-	rm -rf $(NAME)-$(VER)
+	  $(NAME)-refs.bib Makefile .latexmkrc releases/$(NAME)-$(VER)
+	rm -f releases/$(ZIPNAME)
+	cd releases && zip -r $(ZIPNAME) $(NAME)-$(VER)
+	rm -rf releases/$(NAME)-$(VER)
 
 help:
 	@echo "MNSFC Proposal Template Makefile"
