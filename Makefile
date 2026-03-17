@@ -8,7 +8,7 @@
 .PHONY: main pkg doc clean distclean all install install-user zip FORCE_MAKE help
 
 NAME = mnsfc
-VER = v1.0.3
+VER = v1.0.4
 ZIPNAME = $(NAME)-$(VER).zip
 UTREE = $(shell kpsewhich -var-value TEXMFHOME)
 LOCAL = $(shell kpsewhich -var-value TEXMFLOCAL)
@@ -38,12 +38,12 @@ doc : $(NAME).pdf
 # Generate mnsfc.ins from mnsfc.dtx (internal section)
 # The internal section is executed when compiling mnsfc.dtx with latex
 $(NAME).ins: $(NAME).dtx
-	latex -interaction=nonstopmode $(NAME).dtx > /dev/null 2>&1 || true
+	xelatex -interaction=nonstopmode $(NAME).dtx > /dev/null 2>&1 || true
 
 # '$@' is a variable holding the name of the target, and
 # '$<' is a variable holding the (first) dependency of a rule.
 $(NAME).sty: $(NAME).dtx $(NAME).ins
-	latex -interaction=nonstopmode $(NAME).ins
+	xelatex -interaction=nonstopmode $(NAME).ins
 
 $(NAME).pdf : $(NAME).dtx FORCE_MAKE
 	latexmk -xelatex $<

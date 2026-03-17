@@ -145,7 +145,7 @@ and the derived files           mnsfc.ins,
 %<package>\NeedsTeXFormat{LaTeX2e}[2005/12/01]
 %<package>\ProvidesPackage{mnsfc}
 %<*package>
-[2026/02/13 v.1.0.3 A mathematical writing package for the National Natural Science Foundation of China]
+[2026/03/17 v.1.0.4 A mathematical writing package for the National Natural Science Foundation of China]
 %</package>
 %
 %
@@ -258,6 +258,10 @@ and the derived files           mnsfc.ins,
 % 数学类国家自然科学基金申请书 LaTeX 模板，支持 draft 和 final 双模式，提供行号、字数统计等功能。
 % \end{abstract}
 %\changes{v1.0.0}{2026/01/06}{初始版本}
+%\changes{v1.0.1}{2026/01/10}{根据最新版 NSFC Word 模板重构章节结构，并加入生成式人工智能使用指引}
+%\changes{v1.0.2}{2026/02/01}{增加英文项目名称、申请代码与主要研究领域元数据支持；完善文档与使用说明}
+%\changes{v1.0.3}{2026/02/13}{改进构建与安装流程（Makefile install/install-user）、完善 README 安装与 arXiv 参考文献说明，并优化段落标题格式}
+%\changes{v1.0.4}{2026/03/17}{新增数学公式间距微调、自动加载 xeCJKfntef/xy、正文起始页设置命令 \cs{mnsfcBodyStartPage} 以及生成式人工智能使用情况示例声明}
 % \tableofcontents
 %
 % \section{简介}
@@ -423,7 +427,7 @@ and the derived files           mnsfc.ins,
 %  \item 使用 \cs{mnsfcExcludeLine}\marg{内容} 可以排除短行（如 "无。"）的行号显示
 %\end{itemize}
 %
-%\subsection{字数统计（仅 \cs{draft} 模式）}
+%\subsection{字数统计与正文起始页设置（仅 \cs{draft} 模式）}
 %
 %\textbf{基于行号计算}（如果启用行号）：
 %\begin{itemize}
@@ -437,7 +441,7 @@ and the derived files           mnsfc.ins,
 %  \item 计算公式：|字数 ≈ 页数 × 35行/页 × 35字/行|
 %\end{itemize}
 %
-%显示信息：
+%\textbf{显示信息}：
 %\begin{itemize}
 %  \item 正文总页数（不含封面和摘要）
 %  \item 正文行数
@@ -447,6 +451,26 @@ and the derived files           mnsfc.ins,
 %
 %字数统计页面不显示行号。
 %
+%\paragraph{正文起始页设置}
+%
+%在实际 NSFC 申请书中，封面和中英文摘要通常占据前若干页，
+%正文部分需要从指定页码重新开始计数。为此，宏包提供命令：
+%
+%\begin{verbatim}
+%  \mnsfcBodyStartPage{7}
+%\end{verbatim}
+%
+%该命令需在导言区调用，用于指定英文摘要环境\\
+%（\cs{begin\{mnsfcAbstractEN\}}...\cs{end\{mnsfcAbstractEN\}}）结束后，
+%自动执行
+%
+%\begin{verbatim}
+%  \setcounter{page}{7}
+%\end{verbatim}
+%
+%从而使后续“报告正文（2026版）”标题及正文部分从第 7 页开始编号。
+%如果用户未调用 \cs{mnsfcBodyStartPage}，则保持原有页码计数，不做改动。
+%
 %\subsection{参考文献支持}
 %
 %\begin{itemize}
@@ -455,6 +479,7 @@ and the derived files           mnsfc.ins,
 %  \item 自动居中显示"参考文献"标题
 %  \item 使用楷体四号标题，宋体小四号正文
 %  \item 支持 MR 链接（需要参考文献数据中包含 |MRNUMBER| 字段）
+%  \item 推荐配合 \href{https://github.com/vanabel/AMSRefs-arXiv-Support}{AMSRefs arXiv Support} 使用，以获得更好的 arXiv 引用格式（包括 eprint、超链接与手工标签等支持）
 %\end{itemize}
 %
 %\subsection{其他功能}
@@ -521,6 +546,10 @@ and the derived files           mnsfc.ins,
 \RequirePackage{microtype}
 \RequirePackage{environ}
 \RequirePackage{etoolbox}
+%% 支持 \uwave 等 CJK 下划线/波浪线（自动断行）
+\RequirePackage{xeCJKfntef}
+%% 支持 \xymatrix 等交换图环境
+\RequirePackage[all]{xy}
 %% amsrefs 不在这里加载，让用户在文档中加载以控制选项
 %% \RequirePackage{amsrefs}
 \RequirePackage{xparse}
@@ -625,6 +654,16 @@ and the derived files           mnsfc.ins,
 %% 段前 0 行，段后 0.5 行（= 11pt）
 \setlength{\parskip}{0.45em}
 
+%% 数学公式上下间距微调宏
+\def\mycommand{%
+  \setlength{\abovedisplayskip}{0.5em}%
+  \setlength{\belowdisplayskip}{0.5em}%
+  \setlength{\abovedisplayshortskip}{0pt}%
+  \setlength{\belowdisplayshortskip}{0pt}%
+}
+\let\oldselectfont\selectfont
+\def\selectfont{\oldselectfont\mycommand}
+
 %% 允许正常分页，避免孤行和寡行
 \clubpenalty=300
 \widowpenalty=300
@@ -662,6 +701,11 @@ and the derived files           mnsfc.ins,
   \def\mnsfc@researchtype{#1}%
 }
 \newcommand{\mnsfc@researchtype}{}%% 默认为空
+
+%% 正文起始页码（例如：封面和摘要共用前若干页后，正文从第 7 页开始）
+%% 用户可在导言区调用 \mnsfcBodyStartPage{<数字>} 进行设置
+\newcommand{\mnsfc@bodystartpage}{}%% 默认为空：不改动当前页码
+\newcommand{\mnsfcBodyStartPage}[1]{\def\mnsfc@bodystartpage{#1}}
 
 %% 便捷命令
 \newcommand{\mnsfcResearchTypeFree}{\mnsfcResearchType{自由探索类基础研究}}
@@ -752,6 +796,10 @@ and the derived files           mnsfc.ins,
 
 %% 在英文摘要结束后自动插入 NSFCP
 \AfterEndEnvironment{mnsfcAbstractEN}{%
+\ifx\mnsfc@bodystartpage\empty
+\else
+  \setcounter{page}{\mnsfc@bodystartpage}%% 可选：将正文页码重置为指定值
+\fi
 \ifmnsfc@final\vspace{-1.7\baselineskip}\fi% 减少标题后的间距
 \begin{center}
   {\kaishu \zihao{3} \textbf{报告正文（\( 2026 \)版）}}
@@ -1224,6 +1272,18 @@ punct=quanjiao,
 \usepackage[final]{mnsfc} %%draft is default, final is for the final version
 %% 加载 amsrefs 包，可以在这里控制选项
 \usepackage[alphabetic,abbrev,lite,msc-links]{amsrefs}  %% 如果需要启用引文页码, 添加 backrefs 选项
+%% 如需更好地支持 arXiv 参考文献（eprint、超链接、手工标签等），
+%% 推荐配合 AMSRefs arXiv Support 使用：
+%%   https://github.com/vanabel/AMSRefs-arXiv-Support
+%% 并在加载 amsrefs 之后添加（可直接复制到自己的申请书项目中）：
+%% \BibSpec{misc}{%
+%%   +{} {\PrintAuthors} {author}
+%%   +{,} { \textit} {title}
+%%   +{,} { } {date}
+%%   +{,} { } {eprint}
+%%   +{,} { } {note}
+%%   +{.} {} {transition}
+%% }
 
 \mnsfcProjectTitle{（填写项目名称）}{（Project Title）}
 \mnsfcApplicationCode{申请代码1}{申请代码2}  %% 申请代码
@@ -1237,6 +1297,8 @@ punct=quanjiao,
 %% \mnsfcResearchType{自由探索类基础研究}
 %% \mnsfcResearchType{目标导向类基础研究}
 \mnsfcResearchTypeFree  %% 示例：选择自由探索类基础研究
+%% 如需在英文摘要结束后将“报告正文”起始页设为第 7 页，可在导言区启用：
+%% \mnsfcBodyStartPage{7}
 
  \begin{document}
    \mnsfcTitlePage
@@ -1326,10 +1388,9 @@ punct=quanjiao,
   \subsection[申请人和主要参与者同年以不同专业技术职务（职称）申请或参与申请科学基金项目的情况（应详细说明原因）。]{}
   \mnsfcExcludeLine{无。}
   \subsection[其他。]{}
-   \mnsfcNote{（包括但不限于使用以他人名义申报过的申请书；如有，请详细说明）。}
-   \mnsfcNote{申请人在撰写本申请书时使用生成式人工智能的情况，请详细说明申请书中使用的位置和内容。}
-   \mnsfcNote{申请人在撰写申请书时，如果借助生成式人工智能技术跟踪研究动态、收集整理参考文献，必须由人工核实生成式人工智能生成信息和参考文献的真实性和准确性。申请人应当对使用的生成内容负责，应当全面如实声明使用情况，按照《人工智能生成合成内容标识办法》《负责任研究行为规范指引（2023）》等国家有关规定对相关内容进行标识，标识的方式包括但不限于在文本的起始和末尾适当位置添加相应的文字提示等。不得使用由生成式人工智能直接生成的申请书，不得使用未经核实的生成内容。}
-  \mnsfcExcludeLine{无。}
+  \textbf{生成式人工智能使用情况声明}
+
+  本人在撰写本项目申请书过程中，使用生成式人工智能工具辅助进行文献检索与整理，并对部分文字进行语言润色；所有AI生成内容均已通过原始数据库核实其真实性和准确性。申请书核心内容（包括立项依据、研究目标、内容、技术路线及创新点等）均由本人独立撰写完成，未使用AI直接生成完整申请书，亦未使用未经核实的生成内容。本人对申请书全部内容承担全部责任。
   %% 字数统计（仅在 draft 模式下显示）
   \mnsfcWordCount
 \end{document}
