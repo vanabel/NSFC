@@ -1,7 +1,7 @@
 # mNSFC Proposal Template
 
 [![License](https://img.shields.io/badge/license-LPPL%201.3c-blue.svg)](http://www.latex-project.org/lppl.txt)
-[![Version](https://img.shields.io/badge/version-v1.0.2-green.svg)](https://github.com/vanabel/MNSFC/releases)
+[![Version](https://img.shields.io/badge/version-v1.0.4-green.svg)](https://github.com/vanabel/MNSFC/releases)
 [![LaTeX](https://img.shields.io/badge/LaTeX-2.09%2B-orange.svg)](https://www.latex-project.org/)
 
 数学类国家自然科学基金申请书 LaTeX 模板
@@ -103,7 +103,10 @@ kpsewhich mnsfc.sty
 - **标题格式**：支持 section/subsection/subsubsection/paragraph，自动编号
 - **行号功能**：draft 模式下自动显示行号（每 5 行一次）
 - **字数统计**：基于行号自动计算正文字数
+- **正文起始页设置**：可通过 `\mnsfcBodyStartPage{<页码>}` 指定正文起始页（通常在英文摘要结束后从第 7 页开始）
+- **数学公式间距优化**：通过内置宏自动统一/收紧行间公式上下空白，更接近 NSFC 实际排版习惯
 - **参考文献**：支持 `amsrefs` 包，自动生成 MR 链接
+- **arXiv 支持**：示例文档与说明中推荐配合 [AMSRefs arXiv Support](https://github.com/vanabel/AMSRefs-arXiv-Support) 使用，并给出可直接复制的 `\BibSpec{misc}{...}` 配置
 - **列表环境**：自动配置 enumerate 和 itemize 格式
 
 详细功能说明和使用方法请参考 `mnsfc.dtx` 编译生成的文档（运行 `make doc`）。
@@ -116,7 +119,7 @@ kpsewhich mnsfc.sty
    ```
 
 2. **编辑示例文档**：
-   编辑 `mnsfc-main.tex`，设置项目信息：
+   编辑 `mnsfc-main.tex`，设置项目信息，并根据需要修改示例中的“生成式人工智能使用情况声明”：
    ```latex
    \mnsfcProjectTitle{（填写项目名称）}{（Project Title）}
    \mnsfcApplicationCode{申请代码1}{申请代码2}  % 申请代码
@@ -151,7 +154,7 @@ kpsewhich mnsfc.sty
 
 - LaTeX2e
 - XeLaTeX（推荐，支持中文字体）
-- 必需包：`ctex`, `geometry`, `setspace`, `fancyhdr`, `lastpage`, `refcount`, `graphicx`, `xcolor`, `hyperref`, `bookmark`, `enumitem`, `amsmath`, `amssymb`, `microtype`, `environ`, `etoolbox`, `xparse`, `totcount`, `lineno`
+- 必需包：`ctex`, `geometry`, `setspace`, `fancyhdr`, `lastpage`, `refcount`, `graphicx`, `xcolor`, `hyperref`, `bookmark`, `enumitem`, `amsmath`, `amssymb`, `microtype`, `environ`, `etoolbox`, `xeCJKfntef`, `xy`, `xparse`, `totcount`, `lineno`
 - 可选包：`amsrefs`（用于参考文献）
 
 ## 参考文献与 arXiv 支持
